@@ -1,9 +1,7 @@
 <template>
   <div class="w-full flex">
-    <aside
-      class="hidden md:block py-8 px-2 sm:px-6 md:col-span-3 xl:col-span-2 md:py-0 md:px-0"
-    >
-      <nav class="space-y-1 bg-white rounded-md shadow">
+    <aside class="mr-5">
+      <nav class="w-48 space-y-1 bg-white rounded-md shadow">
         <a
           href="/project/3038/contacts"
           class="hover:bg-gray-200 text-indigo-700 group first:rounded-t-md last:rounded-b-md px-3 py-2 flex items-center text-sm"
@@ -48,8 +46,8 @@
         </a>
       </nav>
     </aside>
-    <div class="gap-4 md:col-span-9 xl:col-span-10 bg-whtie">
-      <div class="bg-white px-4 py-2 mb-5 rounded-lg shadow">
+    <div class="w-full rounded-lg bg-white">
+      <div class="bg-white px-4 py-2 rounded-lg shadow">
         <div class="flex flex-wrap items-center space-y-2">
           <div class="flex-auto">
             <h1 class="text-xl md:text-3xl font-semibold text-gray-900">

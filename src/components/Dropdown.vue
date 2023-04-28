@@ -49,13 +49,13 @@
           >
             <div
               v-show="isOpenOption"
-              class="absolute lg:left-1/2 z-20 mt-4 w-screen max-w-sm -translate-x-1/2 transform px-2"
+              class="absolute z-20 mt-4 w-screen max-w-xs -translate-x-1/2 transform px-1"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="options-menu"
             >
               <div
-                class="p-2 flex flex-col overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+                class="p-2 bg-white flex flex-col overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
                 role="none"
               >
                 <template v-for="option in options">

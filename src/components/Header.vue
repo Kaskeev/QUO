@@ -9,7 +9,8 @@
         <div
           class="hidden items-center lg:rounded-lg md:rounded-l-lg bg-white pr-0 px-1.5 py-1 lg:shadow md:flex"
         >
-          <a
+          <router-link
+            to="/"
             href="/project/3038/dashboard"
             class="hover:bg-gray-200 text-indigo-700 text-sm py-2 rounded-md"
           >
@@ -27,14 +28,15 @@
                 d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
               ></path>
             </svg>
-          </a>
-          <a
-            v-for="link in links"
-            :key="link.id"
-            class="hover:bg-gray-200 text-gray-600 hover:text-gray-800 text-sm py-2 rounded-md cursor-pointer"
-          >
-            <span class="text-sm px-1.5 xl:px-3">{{ link.title }}</span>
-          </a>
+          </router-link>
+          <template v-for="link in links">
+            <router-link
+              :to="`${link.path}`"
+              class="hover:bg-gray-200 text-gray-600 hover:text-gray-800 text-sm py-2 rounded-md cursor-pointer"
+            >
+              <span class="text-sm px-1.5 xl:px-3">{{ link.title }}</span>
+            </router-link>
+          </template>
           <div class="relative inline-block text-left">
             <div>
               <button
@@ -77,7 +79,7 @@
                 aria-labelledby="options-menu"
               >
                 <div
-                  class="p-2 flex flex-wrap overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+                  class="p-2 bg-white flex flex-wrap overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
                   role="none"
                 >
                   <template v-for="option in options">
@@ -144,7 +146,6 @@
 <script>
 import { ref } from 'vue'
 import Dropdown from './Dropdown.vue'
-
 export default {
   name: 'Header',
   components: {
@@ -209,16 +210,15 @@ export default {
       selectOption,
     }
   },
-
   data() {
     return {
       links: [
-        { id: 1, title: 'Сценарий' },
-        { id: 2, title: 'Заказы' },
-        { id: 3, title: 'Контакты' },
-        { id: 4, title: 'Продукты' },
-        { id: 5, title: 'Маркетинг' },
-        { id: 6, title: 'Аналитика' },
+        { id: 1, title: 'Сценарий', path: 'scenario' },
+        { id: 2, title: 'Заказы', path: 'scenario' },
+        { id: 3, title: 'Контакты', path: 'contacts' },
+        { id: 4, title: 'Продукты', path: 'scenario' },
+        { id: 5, title: 'Маркетинг', path: 'scenario' },
+        { id: 6, title: 'Аналитика', path: 'analytics' },
       ],
     }
   },

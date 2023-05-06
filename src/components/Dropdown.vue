@@ -49,6 +49,7 @@
           >
             <div
               v-show="isOpenOption"
+              v-if="isOpenOption"
               class="absolute z-20 mt-4 w-screen max-w-xs -translate-x-1/2 transform px-1"
               role="menu"
               aria-orientation="vertical"
@@ -89,6 +90,12 @@ export default {
   setup() {
     const isOpenOption = ref(false)
     const selectedOption = ref(null)
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.relative')) {
+        isOpenOption.value = false
+      }
+    }
+
     const options = [
       {
         id: 1,
@@ -106,6 +113,7 @@ export default {
       selectedOption.value = option
       isOpenOption.value = false
     }
+    window.addEventListener('click', handleClickOutside)
 
     return {
       isOpenOption,
@@ -114,7 +122,9 @@ export default {
       selectOption,
     }
   },
-
+  beforeUnmount() {
+    window.removeEventListener('click', this.handleClickOutside)
+  },
   data() {
     return {
       isOpen: false,

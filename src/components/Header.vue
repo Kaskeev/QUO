@@ -73,6 +73,8 @@
             >
               <div
                 v-show="isOpenOption"
+                @click="menuClick"
+                v-if="isOpenOption"
                 class="absolute lg:left-1/2 z-20 mt-4 w-screen max-w-md -translate-x-1/2 transform px-2"
                 role="menu"
                 aria-orientation="vertical"
@@ -146,15 +148,40 @@
 <script>
 import { ref } from 'vue'
 import Dropdown from './Dropdown.vue'
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   name: 'Header',
   components: {
     Dropdown,
   },
+  // mounted() {
+  //   // Listen for click events on the document
+  //   document.addEventListener('click', this.closeDropdown)
+  // },
+  beforeUnmount() {
+    // Remove the event listener when the component is destroyed
+    document.removeEventListener('click', this.closeDropdown)
+  },
+  methods: {
+    closeDropdown(event) {
+      // Check if the clicked element is inside the dropdown menu
+      if (this.$el.contains(event.target)) {
+        return
+      }
 
+      // Close the dropdown menu if the clicked element is outside of it
+      this.isOpenOption = false
+    },
+  },
   setup() {
     const isOpenOption = ref(false)
     const selectedOption = ref(null)
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.relative')) {
+        isOpenOption.value = false
+      }
+    }
+
     const options = [
       {
         id: 1,
@@ -202,6 +229,7 @@ export default {
       selectedOption.value = option
       isOpenOption.value = false
     }
+    window.addEventListener('click', handleClickOutside)
 
     return {
       isOpenOption,
@@ -209,6 +237,9 @@ export default {
       options,
       selectOption,
     }
+  },
+  beforeUnmount() {
+    window.removeEventListener('click', this.handleClickOutside)
   },
   data() {
     return {
@@ -222,5 +253,5 @@ export default {
       ],
     }
   },
-}
+})
 </script>

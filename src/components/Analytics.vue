@@ -131,100 +131,7 @@
       </div>
     </div>
   </div>
-  <div
-    class="mx-auto w-full grid grid-cols-1 pb-6 md:max-w-2xl lg:max-w-3xl xl:max-w-screen-xl xl:grid-cols-2"
-  >
-    <div class="mx-auto h-full w-full py-2 sm:py-4 pr-0 xl:pr-2">
-      <div class="mx-auto h-full w-full py-4 pr-0">
-        <div
-          class="col-span-full flex flex-col rounded-lg border border-gray-200 bg-white shadow-lg xl:col-span-8"
-        >
-          <div class="flex items-center border-b border-gray-200 px-5 py-4">
-            <span class="text-2xl font-semibold text-gray-800">
-              Пользователи
-            </span>
-          </div>
-          <div class="w-full">
-            <div class="py-1">
-              <div
-                class="grid grid-cols-2 md:grid-cols-4 pl-2 divide-x divide-gray-200"
-              ></div>
-            </div>
-          </div>
-          <div class="flex-grow">
-            <div
-              class=""
-              borderwidth="1"
-              displaycolors="false"
-              mode="nearest"
-              intersect="false"
-              position="nearest"
-              caretsize="0"
-              caretpadding="20"
-              cornerradius="4"
-              padding="8"
-            >
-              <canvas
-                id="bar-chart"
-                width="630"
-                height="300"
-                style="
-                  display: block;
-                  box-sizing: border-box;
-                  height: 300px;
-                  width: 630px;
-                "
-              ></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="mx-auto h-full w-full pb-4 xl:pt-4 pr-0">
-      <div class="mx-auto h-full w-full py-4 pr-0">
-        <div
-          class="col-span-full flex flex-col rounded-lg border border-gray-200 bg-white shadow-lg xl:col-span-8"
-        >
-          <div class="flex items-center border-b border-gray-200 px-5 py-4">
-            <span class="text-2xl font-semibold text-gray-800">Заказы</span>
-          </div>
-          <div class="w-full">
-            <div class="py-1">
-              <div
-                class="grid grid-cols-2 md:grid-cols-4 pl-2 divide-x divide-gray-200"
-              ></div>
-            </div>
-          </div>
-          <div class="flex-grow">
-            <div
-              class=""
-              borderwidth="1"
-              displaycolors="false"
-              mode="nearest"
-              intersect="false"
-              position="nearest"
-              caretsize="0"
-              caretpadding="20"
-              cornerradius="4"
-              padding="8"
-            >
-              <canvas
-                id="bar-chart"
-                width="638"
-                height="300"
-                style="
-                  display: block;
-                  box-sizing: border-box;
-                  height: 300px;
-                  width: 638px;
-                "
-              ></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <Charts />
 </template>
 
 <script>
@@ -232,7 +139,6 @@ import { ref, computed } from 'vue'
 
 export default {
   name: 'Analytics',
-
   data() {
     return {
       currentDate: new Date().toLocaleDateString(),

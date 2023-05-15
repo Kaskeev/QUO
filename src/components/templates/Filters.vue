@@ -33,7 +33,7 @@
             clip-rule="evenodd"
           ></path>
         </svg>
-        {{ title }}
+        {{ name }}
         <span class="text-indigo-500">
           {{ selectedOption ? ': ' + selectedOption : '' }}
         </span>
@@ -42,7 +42,7 @@
         v-if="isOpen"
         class="absolute top-8 z-10 w-64 bg-white text-gray-600 shadow-sm p-2 rounded-md border border-gray-100 text-xs"
       >
-        <span class="text-left">Фильтр по "{{ title }}"</span>
+        <span class="text-left">Фильтр по "{{ name }}"</span>
         <div ref="messageText" class="my-2 flex items-center">
           <input
             ref="input"
@@ -103,16 +103,16 @@
 <script>
 import { defineComponent, ref } from 'vue'
 export default defineComponent({
-  name: 'Filter',
+  name: 'Filters',
   props: {
-    title: {
+    name: {
       type: String,
       required: true,
     },
   },
   setup() {
     const isOpen = ref(false)
-    const selectedOption = ref('')
+    const selectedOption = ref(null)
     const inputValue = ref('')
     const handleClickOutside = (event) => {
       if (!event.target.closest('.relative')) {
@@ -129,6 +129,7 @@ export default defineComponent({
       selectedOption,
       inputValue,
       selectOption,
+      handleClickOutside,
     }
   },
   beforeUnmount() {

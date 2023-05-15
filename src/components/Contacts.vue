@@ -83,7 +83,7 @@
           class="mt-4 relative py-2 w-full divide-gray-200 z-10 border-t border-gray-300"
         >
           <div class="w-full pr-44">
-            <Filter
+            <Filters
               v-for="filter in filters"
               :key="filter.title"
               :title="filter.title"
@@ -178,7 +178,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import Filter from '../components/templates/Filter.vue'
+import Filters from '../components/templates/Filters.vue'
 const filters = ref([
   { title: 'ID' },
   { title: 'Имя' },

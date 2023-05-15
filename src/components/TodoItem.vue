@@ -260,19 +260,6 @@
               </svg>
             </button>
           </span>
-
-          <!-- <button
-              class="ml-auto bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded mr-2"
-              @click="$emit('editItem', item)"
-            >
-              Edit
-            </button>
-            <button
-              class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-              @click="$emit('deleteItem', item)"
-            >
-              Delete
-            </button> -->
         </div>
       </div>
     </td>

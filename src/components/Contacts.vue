@@ -83,170 +83,14 @@
           class="mt-4 relative py-2 w-full divide-gray-200 z-10 border-t border-gray-300"
         >
           <div class="w-full pr-44">
-            <div
-              data-headlessui-state=""
-              class="flex inline-flex text-left mr-1"
-            >
-              <div
-                class="border-dashed inline-flex mr-1 rounded-full border border-gray-300 p-1 pr-2 text-xs text-gray-400"
-              >
-                <!--v-if-->
-                <button
-                  id="headlessui-popover-button-6"
-                  class="inline-flex focus:outline-none"
-                  type="button"
-                  aria-expanded="false"
-                  data-headlessui-state=""
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    class="w-4 mr-1"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  ID
-                  <!--v-if-->
-                </button>
-                <!---->
-              </div>
-              <!--v-if-->
-            </div>
-            <div
-              data-headlessui-state=""
-              class="flex inline-flex text-left mr-1"
-            >
-              <div
-                class="border-dashed inline-flex mr-1 rounded-full border border-gray-300 p-1 pr-2 text-xs text-gray-400"
-              >
-                <!--v-if-->
-                <button
-                  id="headlessui-popover-button-9"
-                  class="inline-flex focus:outline-none"
-                  type="button"
-                  aria-expanded="false"
-                  data-headlessui-state=""
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    class="w-4 mr-1"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Имя
-                  <!--v-if-->
-                </button>
-                <!---->
-              </div>
-              <!--v-if-->
-            </div>
-            <div
-              data-headlessui-state=""
-              class="flex inline-flex text-left mr-1"
-            >
-              <div
-                class="border-dashed inline-flex mr-1 rounded-full border border-gray-300 p-1 pr-2 text-xs text-gray-400"
-              >
-                <!--v-if-->
-                <button
-                  id="headlessui-popover-button-12"
-                  class="inline-flex focus:outline-none"
-                  type="button"
-                  aria-expanded="false"
-                  data-headlessui-state=""
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    class="w-4 mr-1"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Фамилия
-                  <!--v-if-->
-                </button>
-                <!---->
-              </div>
-              <!--v-if-->
-            </div>
-            <div
-              data-headlessui-state=""
-              class="flex inline-flex text-left mr-1"
-            >
-              <div
-                class="border-dashed inline-flex mr-1 rounded-full border border-gray-300 p-1 pr-2 text-xs text-gray-400"
-              >
-                <!--v-if-->
-                <button
-                  id="headlessui-popover-button-15"
-                  class="inline-flex focus:outline-none"
-                  type="button"
-                  aria-expanded="false"
-                  data-headlessui-state=""
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    class="w-4 mr-1"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Никнейм
-                  <!--v-if-->
-                </button>
-                <!---->
-              </div>
-              <!--v-if-->
-            </div>
+            <Filter
+              v-for="filter in filters"
+              :key="filter.title"
+              :title="filter.title"
+            />
+
             <!--Filter Menu-->
             <div class="absolute bg-white inline-flex right-0 p-1.5 top-2">
-              <button
-                class="inline-flex ml-4 text-xs text-gray-400"
-                id="headlessui-popover-button-6"
-                type="button"
-                aria-expanded="false"
-                data-headlessui-state=""
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                  class="w-4"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                Очистить
-              </button>
               <div
                 data-headlessui-state=""
                 class="ml-2 relative flex flex-row-reverse text-left"
@@ -332,8 +176,13 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'Contacts',
-}
+<script setup>
+import { ref } from 'vue'
+import Filter from '../components/templates/Filter.vue'
+const filters = ref([
+  { title: 'ID' },
+  { title: 'Имя' },
+  { title: 'Фамилия' },
+  { title: 'Никнейм' },
+])
 </script>

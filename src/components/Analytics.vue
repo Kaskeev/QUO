@@ -17,12 +17,7 @@
         v-model="selectedDate"
         @change="onDateChange"
       />
-      <button
-        class="text-gray-500 rounded-bottom-angles bg-white outline-none rounded relative transition duration-100 py-2 px-2 text-xs sm:text-sm sm:px-4 cursor-pointer hover:text-indigo-700"
-        @click="currentTab = 'select'"
-      >
-        Выбрать
-      </button>
+      <DatePicker />
     </div>
     <div>
       <div class="flex flex-wrap place-content-center">
@@ -136,9 +131,14 @@
 
 <script>
 import { ref, computed } from 'vue'
+import DatePicker from './DataPicker.vue'
 
 export default {
   name: 'Analytics',
+  components: {
+    DatePicker,
+  },
+
   data() {
     return {
       currentDate: new Date().toLocaleDateString(),

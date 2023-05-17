@@ -4,6 +4,7 @@
     :filters="filters"
     :tableHeaders="tableHeaders"
     :items="items"
+    :modal="modal"
   />
 </template>
 
@@ -23,20 +24,36 @@ export default defineComponent({
       { name: 'Кнопки' },
     ]
     const tableHeaders = [
-      { nameHeader: 'Команда' },
-      { nameHeader: 'Текст Сообщения' },
-      { nameHeader: 'Кнопки' },
-      { nameHeader: 'Следующая команда' },
+      { nameHeaderFirst: 'Команда' },
+      { nameHeaderSecond: 'Текст Сообщения' },
+      { nameHeaderThird: 'Кнопки' },
+      { nameHeaderFourth: 'Следующая команда' },
     ]
     const items = [
       { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
       { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
+      { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
+      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
+      { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
+      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
+      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
+    ]
+    const modal = [
+      {
+        modalTitle: 'Добавить',
+        modalFirst: 'команду',
+        modalSecond: 'сообщения',
+        modalThird: 'кнопку',
+        modalBtn: 'Добавить',
+        modalEditTitle: 'Изменить',
+      },
     ]
     return {
       title,
       filters,
       tableHeaders,
       items,
+      modal,
     }
   },
 })

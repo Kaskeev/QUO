@@ -147,7 +147,7 @@
 </template>
 <script>
 import { ref } from 'vue'
-import Dropdown from './Dropdown.vue'
+import Dropdown from './templates/Dropdown.vue'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Header',

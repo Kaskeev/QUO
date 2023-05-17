@@ -9,7 +9,9 @@
     >
       <div class="relative px-6 py-4">
         <div class="flex">
-          <h2 class="text-zinc-600 text-base md:text-xl">Добавить</h2>
+          <h2 class="text-zinc-600 text-base md:text-xl">
+            {{ modalTitle }}
+          </h2>
           <button type="button" @click="$emit('closeModal')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,9 +37,7 @@
                 class="block font-medium text-sm text-gray-700"
                 for="add-title"
               >
-                <span>
-                  Добавить команду
-                </span>
+                <span>{{ modalTitle }} {{ modalFirst }}</span>
               </label>
               <input
                 class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
@@ -54,9 +54,7 @@
                 class="block font-medium text-sm text-gray-700"
                 for="add-description"
               >
-                <span>
-                  Текст сообщения
-                </span>
+                <span>{{ modalTitle }} {{ modalSecond }}</span>
               </label>
               <textarea
                 class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
@@ -72,7 +70,7 @@
                 class="block font-medium text-sm text-gray-700"
                 for="add-btn"
               >
-                Добавить кнопку
+                {{ modalTitle }} {{ modalThird }}
               </label>
               <textarea
                 class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
@@ -87,7 +85,7 @@
               class="inline-flex items-center rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-sm font-normal text-white transition hover:bg-indigo-500 focus:outline-none disabled:opacity-25"
               type="submit"
             >
-              Добавить
+              {{ modalBtn }}
             </button>
           </div>
         </form>
@@ -106,6 +104,11 @@ export default {
       type: Boolean,
       required: true,
     },
+    modalTitle: String,
+    modalFirst: String,
+    modalThird: String,
+    modalSecond: String,
+    modalBtn: String,
   },
   setup(props, { emit }) {
     const title = ref('')

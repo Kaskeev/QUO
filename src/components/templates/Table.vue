@@ -12,7 +12,7 @@
           <button
             type="button"
             class="inline-flex items-center justify-center px-4 py-1 bg-indigo-500 hover:bg-indigo-600 text-white border focus:outline-none border-transparent rounded-full font-normal text-xs sm:text-sm disabled:opacity-25 transition"
-            @click="showAddModal = true"
+            @click="showModal = true"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -31,16 +31,15 @@
             </svg>
             Добавить
           </button>
-          <AddModal
-            :show="showAddModal"
-            @closeModal="showAddModal = false"
-            @addItem="addItem"
-            :modalTitle="modal[0].modalTitle"
-            :modalFirst="modal[0].modalFirst"
-            :modalSecond="modal[0].modalSecond"
-            :modalThird="modal[0].modalThird"
-            :modalBtn="modal[0].modalBtn"
-          ></AddModal>
+          <Modal
+            v-if="showModal"
+            :show="showModal"
+            @submitForm="submitForm"
+            @closeModal="closeModal"
+            :item="selectedItem"
+            :titles="modal.titles"
+            :fields="modal.fields"
+          />
         </div>
       </div>
     </div>
@@ -117,17 +116,13 @@
             :item="item"
             @deleteItem="deleteItem"
             @editItem="editItem"
-            @addItem="addItem"
           />
-          <EditModal
-            :show="showEditModal"
+          <Modal
+            v-if="showModal"
+            :show="showModal"
+            @closeModal="showModal = false"
+            @submitForm="submitForm"
             :item="selectedItem"
-            @closeModal="showEditModal = false"
-            @updateItem="updateItem"
-            :modalEditTitle="modal[0].modalEditTitle"
-            :modalFirst="modal[0].modalFirst"
-            :modalSecond="modal[0].modalSecond"
-            :modalThird="modal[0].modalThird"
           />
         </table>
       </div>
@@ -202,11 +197,11 @@
     </nav>
   </div>
 </template>
+
 <script>
 import { defineComponent, ref, watch } from 'vue'
 import TodoItem from './TodoItem.vue'
-import AddModal from './AddModal.vue'
-import EditModal from './EditModal.vue'
+import Modal from './Modal.vue'
 import DownloadExcel from './DownloadExcel.vue'
 import Filters from './Filters.vue'
 import { computed } from 'vue'
@@ -223,16 +218,14 @@ export default defineComponent({
   },
   components: {
     TodoItem,
-    AddModal,
-    EditModal,
+    Modal,
     Filters,
     DownloadExcel,
   },
 
   setup(props) {
     const objectsName = 'table'
-    const showAddModal = ref(false)
-    const showEditModal = ref(false)
+    const showModal = ref(false)
     const selectedItem = ref(null)
     const currentPage = ref(1)
     const itemsPerPage = 4
@@ -279,7 +272,7 @@ export default defineComponent({
           btn,
         }
         props.items.push(newItem)
-        showAddModal.value = false
+        showModal.value = false
       }
     }
     const deleteItem = (id) => {
@@ -288,7 +281,12 @@ export default defineComponent({
     }
     const editItem = (item) => {
       selectedItem.value = item
-      showEditModal.value = true
+      showModal.value = true
+      console.log('dsf')
+    }
+    const closeModal = () => {
+      selectedItem.value = null
+      showModal.value = false
     }
 
     const updateItem = (item, title, description, btn) => {
@@ -296,15 +294,32 @@ export default defineComponent({
       item.description = description
       item.btn = btn
       selectedItem.value = null
-      showEditModal.value = false
+      showModal.value = false
+    }
+
+    const submitForm = (item, title, description, btn, newItem) => {
+      if (newItem) {
+        const newObj = {
+          id: Math.floor(Math.random() * 100000),
+          title,
+          description,
+          btn,
+        }
+        props.items.push(newObj)
+      } else {
+        item.title = title
+        item.description = description
+        item.btn = btn
+      }
+      console.log(newItem)
+      closeModal()
     }
     const applyButton = ref(null)
 
     return {
       currentPage,
       paginatedItems,
-      showAddModal,
-      showEditModal,
+      showModal,
       selectedItem,
       addItem,
       deleteItem,
@@ -319,7 +334,17 @@ export default defineComponent({
       itemsPerPage,
       displayRangeStart,
       displayRangeEnd,
+      closeModal,
+      submitForm,
     }
+  },
+  watch: {
+    'modal.title': {
+      immediate: true,
+      handler(value) {
+        console.log('Значение modal.title:', value)
+      },
+    },
   },
 })
 </script>

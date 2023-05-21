@@ -95,7 +95,7 @@
                   Редактировать
                 </a>
               </div>
-              <div role="none" @click="$emit('addItem', item)">
+              <div role="none" @click="$emit('editItem', item)">
                 <a
                   href="#"
                   class="text-zinc-500 group flex items-center px-4 py-2"

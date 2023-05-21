@@ -10,7 +10,7 @@
       <div class="relative px-6 py-4">
         <div class="flex">
           <h2 class="text-zinc-600 text-base md:text-xl">
-            {{ modalEditTitle }}
+            {{ titles[0].title }}
           </h2>
           <button type="button" @click="$emit('closeModal')">
             <svg
@@ -32,55 +32,47 @@
         </div>
         <form @submit.prevent="submitForm">
           <div class="grid grid-cols-2 gap-2 pt-5">
-            <div class="col-span-2">
+            <div v-for="field in fields" class="col-span-2">
               <label
                 class="block font-medium text-sm text-gray-700"
                 for="edit-title"
               >
-                {{ modalEditTitle }} {{ modalFirst }}
+                <span>
+                  {{ field.title }}
+                </span>
               </label>
-              <input
-                class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
-                type="text"
-                id="edit-title"
-                v-model="title"
-                v-if="item && item.title"
-                required
-              />
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2 pt-5">
-            <div class="col-span-2">
-              <label
-                class="block font-medium text-sm text-gray-700"
-                for="edit-description"
-              >
-                {{ modalEditTitle }} {{ modalSecond }}
-              </label>
-              <textarea
-                class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
-                id="edit-description"
-                v-model="description"
-                v-if="item && item.description"
-                required
-              ></textarea>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2 pt-5">
-            <div class="col-span-2">
-              <label
-                class="block font-medium text-sm text-gray-700"
-                for="edit-btn"
-              >
-                {{ modalEditTitle }} {{ modalThird }}
-              </label>
-              <textarea
-                class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
-                id="edit-btn"
-                v-model="btn"
-                v-if="item && item.btn"
-                required
-              ></textarea>
+              <template v-if="field.type === 'input'">
+                <input
+                  class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                  type="text"
+                  id="edit-title"
+                  v-model="title"
+                  required
+                />
+              </template>
+              <template v-if="field.type === 'textarea'">
+                <textarea
+                  class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                  id="edit-description"
+                  v-model="description"
+                  required
+                ></textarea>
+              </template>
+              <template v-if="field.type === 'select'">
+                <select
+                  class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                  :id="`edit-${field.id}`"
+                  v-model="field.selectedChoice"
+                >
+                  <option
+                    v-for="choice in field.choice"
+                    :value="choice"
+                    :key="choice"
+                  >
+                    {{ choice }}
+                  </option>
+                </select>
+              </template>
             </div>
           </div>
           <div class="flex justify-end">
@@ -88,7 +80,7 @@
               class="inline-flex items-center rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-sm font-normal text-white transition hover:bg-indigo-500 focus:outline-none disabled:opacity-25"
               type="submit"
             >
-              {{ modalEditTitle }}
+              sgd
             </button>
           </div>
         </form>
@@ -98,37 +90,50 @@
 </template>
 
 <script>
-import { ref, watchEffect, defineComponent } from 'vue'
+import { ref, watchEffect, defineComponent, onMounted } from 'vue'
 
 export default defineComponent({
-  name: 'EditModal',
+  name: 'Modal',
   props: {
     show: {
       type: Boolean,
       required: true,
     },
     item: {
-      type: Object,
+      type: Object || null,
       required: true,
     },
-    modalEditTitle: String,
-    modalFirst: String,
-    modalThird: String,
-    modalSecond: String,
+    fields: {
+      type: Array,
+      required: true,
+    },
+    titles: {
+      type: Array,
+      required: true,
+    },
   },
   setup(props, { emit }) {
     const title = ref('')
     const description = ref('')
     const btn = ref('')
-
-    if (props.item) {
-      title.value = props.item.title
-      description.value = props.item.description
-      btn.value = props.item.btn
-    }
-
+    const newItem = ref(true)
+    onMounted(() => {
+      if (props.item) {
+        title.value = props.item.title
+        description.value = props.item.description
+        btn.value = props.item.btn
+        newItem.value = false
+      }
+    })
     const submitForm = () => {
-      emit('updateItem', props.item, title.value, description.value, btn.value)
+      emit(
+        'submitForm',
+        props.item,
+        title.value,
+        description.value,
+        btn.value,
+        newItem.value,
+      )
     }
 
     watchEffect(() => {

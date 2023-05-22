@@ -37,9 +37,18 @@
             @submitForm="submitForm"
             @closeModal="closeModal"
             :item="selectedItem"
-            :titles="modal.titles"
+            :titles="modal.title"
             :fields="modal.fields"
-          />
+          >
+            <template #buttons>
+              <button
+                class="inline-flex items-center rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-sm font-normal text-white transition hover:bg-indigo-500 focus:outline-none disabled:opacity-25"
+                type="submit"
+              >
+                Сохранить
+              </button>
+            </template>
+          </Modal>
         </div>
       </div>
     </div>
@@ -61,54 +70,46 @@
           class="min-w-full divide-y divide-gray-200 border-t border-gray-200 text-xs lg:text-sm"
         >
           <thead>
-            <th class="w-48 px-2 py-1 font-normal text-gray-600 truncate">
+            <th
+              v-for="name in tableHeaders.names"
+              class="w-48 px-2 py-1 font-normal text-gray-600 truncate"
+            >
               <div class="justify-start flex items-center">
-                <span>{{ tableHeaders[0].nameHeaderFirst }}</span>
-                <div class="text-zinc-400">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    class="w-4 h-2.5 -mb-1"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
-                      clip-rule="evenodd"
-                    ></path></svg
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    class="w-4 h-2.5 -mb-0.5"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </div>
+                <template v-if="name.type === 'withSvg'">
+                  <span>{{ name.title }}</span>
+                  <div class="text-zinc-400">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      class="w-4 h-2.5 -mb-1"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+                        clip-rule="evenodd"
+                      ></path></svg
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      class="w-4 h-2.5 -mb-0.5"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+                </template>
+                <tempalte v-else="name.type == undefined || null">
+                  <span>{{ name.title }}</span>
+                </tempalte>
               </div>
             </th>
-            <th class="w-48 px-2 py-1 font-normal text-gray-600 truncate">
-              <div class="justify-start flex items-center">
-                <span>{{ tableHeaders[1].nameHeaderSecond }}</span>
-              </div>
-            </th>
-            <th class="w-48 px-2 py-1 font-normal text-gray-600 truncate">
-              <div class="justify-start flex items-center">
-                <span>{{ tableHeaders[2].nameHeaderThird }}</span>
-              </div>
-            </th>
-            <th class="w-48 px-2 py-1 font-normal text-gray-600 truncate">
-              <div class="justify-start flex items-center">
-                <span>{{ tableHeaders[3].nameHeaderFourth }}</span>
-              </div>
-            </th>
-            <th class="py-2.5 pl-3 pr-6 bg-white sticky right-0"></th>
           </thead>
           <TodoItem
             v-for="item in paginatedItems"
@@ -212,7 +213,7 @@ export default defineComponent({
     title: String,
     wrap: String,
     filters: Array,
-    tableHeaders: Array,
+    tableHeaders: Object,
     items: Array,
     modal: Array,
   },

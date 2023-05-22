@@ -10,7 +10,7 @@
       <div class="relative px-6 py-4">
         <div class="flex">
           <h2 class="text-zinc-600 text-base md:text-xl">
-            {{ titles[0].title }}
+            {{ modalTitle }}
           </h2>
           <button type="button" @click="$emit('closeModal')">
             <svg
@@ -31,57 +31,84 @@
           </button>
         </div>
         <form @submit.prevent="submitForm">
-          <div class="grid grid-cols-2 gap-2 pt-5">
-            <div v-for="field in fields" class="col-span-2">
-              <label
-                class="block font-medium text-sm text-gray-700"
-                for="edit-title"
+          <div class="">
+            <div class="w-full flex justify-between flex-wrap align-center">
+              <div
+                v-for="field in fields"
+                class="w-48 mx-2 pt-5"
+                :class="{
+                  hidden: field.type !== 'input' && field.type !== 'select',
+                }"
               >
-                <span>
-                  {{ field.title }}
-                </span>
-              </label>
-              <template v-if="field.type === 'input'">
-                <input
-                  class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
-                  type="text"
-                  id="edit-title"
-                  v-model="title"
-                  required
-                />
-              </template>
-              <template v-if="field.type === 'textarea'">
-                <textarea
-                  class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
-                  id="edit-description"
-                  v-model="description"
-                  required
-                ></textarea>
-              </template>
-              <template v-if="field.type === 'select'">
-                <select
-                  class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
-                  :id="`edit-${field.id}`"
-                  v-model="field.selectedChoice"
-                >
-                  <option
-                    v-for="choice in field.choice"
-                    :value="choice"
-                    :key="choice"
+                <template v-if="field.type === 'input'">
+                  <label
+                    class="block font-medium text-sm text-gray-700"
+                    :for="`edit-${field.id}`"
                   >
-                    {{ choice }}
-                  </option>
-                </select>
-              </template>
+                    <span>
+                      {{ field.title }}
+                    </span>
+                  </label>
+                  <input
+                    class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                    type="text"
+                    :id="`edit-${field.id}`"
+                    v-model="title"
+                    required
+                  />
+                </template>
+                <template v-if="field.type === 'select'">
+                  <label
+                    class="block font-medium text-sm text-gray-700"
+                    :for="`edit-${field.id}`"
+                  >
+                    <span>
+                      {{ field.title }}
+                    </span>
+                  </label>
+                  <select
+                    class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                    :id="`edit-${field.id}`"
+                    v-model="field.selectedChoice"
+                  >
+                    <option
+                      v-for="choice in field.choice"
+                      :value="choice"
+                      :key="choice"
+                    >
+                      {{ choice }}
+                    </option>
+                  </select>
+                </template>
+              </div>
+              <div
+                v-for="field in fields"
+                :class="{ hidden: field.type !== 'textarea' }"
+                class="w-full mx-2 pt-5"
+              >
+                <template v-if="field.type === 'textarea'">
+                  <label
+                    class="block font-medium text-sm text-gray-700"
+                    :for="`edit-${field.id}`"
+                  >
+                    <span>
+                      {{ field.title }}
+                    </span>
+                  </label>
+                  <div class="w-full">
+                    <textarea
+                      class="h-32 w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                      :id="`edit-${field.id}`"
+                      v-model="description"
+                      required
+                    ></textarea>
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
           <div class="flex justify-end">
-            <button
-              class="inline-flex items-center rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-sm font-normal text-white transition hover:bg-indigo-500 focus:outline-none disabled:opacity-25"
-              type="submit"
-            >
-              sgd
-            </button>
+            <slot name="buttons"></slot>
           </div>
         </form>
       </div>
@@ -90,7 +117,7 @@
 </template>
 
 <script>
-import { ref, watchEffect, defineComponent, onMounted } from 'vue'
+import { ref, defineComponent, onMounted, computed } from 'vue'
 
 export default defineComponent({
   name: 'Modal',
@@ -108,15 +135,17 @@ export default defineComponent({
       required: true,
     },
     titles: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
+
   setup(props, { emit }) {
     const title = ref('')
     const description = ref('')
     const btn = ref('')
     const newItem = ref(true)
+    console.log(props.titles)
     onMounted(() => {
       if (props.item) {
         title.value = props.item.title
@@ -136,11 +165,11 @@ export default defineComponent({
       )
     }
 
-    watchEffect(() => {
-      if (props.item) {
-        title.value = props.item.title
-        description.value = props.item.description
-        btn.value = props.item.description
+    const modalTitle = computed(() => {
+      if (props.item == null) {
+        return props.titles.name
+      } else {
+        return 'Редактирование'
       }
     })
 
@@ -149,6 +178,7 @@ export default defineComponent({
       description,
       btn,
       submitForm,
+      modalTitle,
     }
   },
 })

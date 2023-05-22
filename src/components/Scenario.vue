@@ -23,12 +23,15 @@ export default defineComponent({
       { name: 'Текст Сообщения' },
       { name: 'Кнопки' },
     ]
-    const tableHeaders = [
-      { nameHeaderFirst: 'Команда' },
-      { nameHeaderSecond: 'Текст Сообщения' },
-      { nameHeaderThird: 'Кнопки' },
-      { nameHeaderFourth: 'Следующая команда' },
-    ]
+    const tableHeaders = {
+      names: [
+        { id: 'command', title: 'Команда', type: 'withSvg' },
+        { id: 'text__message', title: 'Текст Сообщения' },
+        { id: 'button', title: 'Кнопки' },
+        { id: 'next__command', title: 'Следующая команда' },
+      ],
+    }
+
     const items = [
       { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
       { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
@@ -39,21 +42,51 @@ export default defineComponent({
       { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
     ]
     const modal = {
-      titles: [
-        {
-          id: 'add',
-          title: 'Добавить',
-        },
-        {
-          id: 'edit',
-          title: 'Изменить',
-        },
-      ],
+      title: { id: 'title', name: 'Добавление' },
       fields: [
         {
           id: 'command',
           title: 'Команда',
           type: 'input',
+          name: 'title',
+        },
+        {
+          id: 'message_type',
+          title: 'Тип сообщения',
+          type: 'select',
+          choice: [
+            'Сообщение',
+            'Фото',
+            'Видео',
+            'Медиа',
+            'Файл',
+            'GIF',
+            'Карусель',
+            'Аудио',
+            'Телефон',
+            'Локация',
+          ],
+        },
+        {
+          id: 'question',
+          title: 'Вопрос',
+          type: 'input',
+        },
+        {
+          id: 'next_command',
+          title: 'Следующее сообщение',
+          type: 'input',
+        },
+        {
+          id: 'file',
+          title: 'Файл',
+          type: 'input',
+        },
+        {
+          id: 'buttons',
+          title: 'Тип кнопок',
+          type: 'select',
+          choice: ['Inline', 'Обычные', 'Inline_list'],
         },
         {
           id: 'message',
@@ -61,15 +94,9 @@ export default defineComponent({
           type: 'textarea',
         },
         {
-          id: 'message_type',
-          title: 'Тип сообщения',
-          type: 'select',
-          choice: [1, 2, 3, 4],
-        },
-        {
-          id: 'next_command',
-          title: 'Следующее сообщение',
-          type: 'input',
+          id: 'menu',
+          title: 'Меню',
+          type: 'textarea',
         },
       ],
     }

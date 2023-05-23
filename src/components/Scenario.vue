@@ -25,7 +25,7 @@ export default defineComponent({
     ]
     const tableHeaders = {
       names: [
-        { id: 'command', title: 'Команда', type: 'withSvg' },
+        { id: 'command', title: 'Команда', bool: true },
         { id: 'text__message', title: 'Текст Сообщения' },
         { id: 'button', title: 'Кнопки' },
         { id: 'next__command', title: 'Следующая команда' },
@@ -33,23 +33,29 @@ export default defineComponent({
     }
 
     const items = [
-      { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
-      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
-      { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
-      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
-      { title: 'Lorem', description: 'Ipsum', btn: 'Lorem' },
-      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
-      { title: 'Ipsum', description: 'Lorem', btn: 'Ipsum' },
+      {
+        command: 'Команда',
+      },
+      {
+        command: 'Lorem',
+        next_command: 'Ipsum',
+        file: 'Lorem',
+        message_type: 'Сообщение',
+        question: 'Ipsum',
+        buttons: 'Inline',
+        message: 'Ipsum',
+        menu: 'Ipsum',
+      },
     ]
     const modal = {
-      title: { id: 'title', name: 'Добавление' },
+      title: 'Добавление',
       fields: [
         {
           id: 'command',
           title: 'Команда',
           type: 'input',
-          name: 'title',
         },
+
         {
           id: 'message_type',
           title: 'Тип сообщения',

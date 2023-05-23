@@ -37,7 +37,7 @@
             @submitForm="submitForm"
             @closeModal="closeModal"
             :item="selectedItem"
-            :titles="modal.title"
+            :title="modal.title"
             :fields="modal.fields"
           >
             <template #buttons>
@@ -72,10 +72,10 @@
           <thead>
             <th
               v-for="name in tableHeaders.names"
-              class="w-48 px-2 py-1 font-normal text-gray-600 truncate"
+              class="w-16 px-2 py-1 font-normal text-gray-600 truncate"
             >
               <div class="justify-start flex items-center">
-                <template v-if="name.type === 'withSvg'">
+                <template v-if="name.bool === true">
                   <span>{{ name.title }}</span>
                   <div class="text-zinc-400">
                     <svg
@@ -117,13 +117,6 @@
             :item="item"
             @deleteItem="deleteItem"
             @editItem="editItem"
-          />
-          <Modal
-            v-if="showModal"
-            :show="showModal"
-            @closeModal="showModal = false"
-            @submitForm="submitForm"
-            :item="selectedItem"
           />
         </table>
       </div>
@@ -264,13 +257,13 @@ export default defineComponent({
 
     const myTitle = 'Скачать'
 
-    const addItem = (title, description, btn) => {
+    const addItem = (command, next_command, file) => {
       if (props.items && Array.isArray(props.items)) {
         const newItem = {
           id: Math.floor(Math.random() * 100000),
-          title,
-          description,
-          btn,
+          command,
+          next_command,
+          command,
         }
         props.items.push(newItem)
         showModal.value = false
@@ -290,27 +283,27 @@ export default defineComponent({
       showModal.value = false
     }
 
-    const updateItem = (item, title, description, btn) => {
-      item.title = title
-      item.description = description
-      item.btn = btn
+    const updateItem = (item, command, next_command, file) => {
+      item.command = command
+      item.next_command = next_command
+      item.file = file
       selectedItem.value = null
       showModal.value = false
     }
 
-    const submitForm = (item, title, description, btn, newItem) => {
+    const submitForm = (item, command, next_command, file, newItem) => {
       if (newItem) {
         const newObj = {
           id: Math.floor(Math.random() * 100000),
-          title,
-          description,
-          btn,
+          command,
+          next_command,
+          file,
         }
         props.items.push(newObj)
       } else {
-        item.title = title
-        item.description = description
-        item.btn = btn
+        item.command = command
+        item.next_command = next_command
+        item.file = file
       }
       console.log(newItem)
       closeModal()

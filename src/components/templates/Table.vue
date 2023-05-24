@@ -105,18 +105,18 @@
                     </svg>
                   </div>
                 </template>
-                <tempalte v-else="name.type == undefined || null">
+                <template v-else="name.type == undefined || null">
                   <span>{{ name.title }}</span>
-                </tempalte>
+                </template>
               </div>
             </th>
           </thead>
           <TodoItem
             v-for="item in paginatedItems"
             :key="item.id"
-            :item="item.fieldsValues"
-            @deleteItem="deleteItem(item.id)"
-            @editItem="editItem(item)"
+            :item="item"
+            @deleteItem="deleteItem"
+            @editItem="editItem"
           />
         </table>
       </div>
@@ -254,7 +254,6 @@ export default defineComponent({
         currentPage.value -= 1
       }
     }
-    const fieldsValues = ref({})
     const myTitle = 'Скачать'
 
     const addItem = (fieldsValues) => {
@@ -268,7 +267,6 @@ export default defineComponent({
       }
     }
 
-    console.log(props.item)
     const deleteItem = (id) => {
       const index = props.items.findIndex((item) => item.id === id)
       props.items.splice(index, 1)
@@ -282,7 +280,7 @@ export default defineComponent({
       showModal.value = false
     }
 
-    const updateItem = (item, fieldsValues) => {
+    const updateItem = (fieldsValues) => {
       item.fieldsValues = fieldsValues
       selectedItem.value = null
       showModal.value = false
@@ -320,7 +318,6 @@ export default defineComponent({
       displayRangeEnd,
       closeModal,
       submitForm,
-      fieldsValues,
     }
   },
 })

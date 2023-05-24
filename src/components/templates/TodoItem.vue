@@ -3,55 +3,27 @@
     class="border-b border-gray-200 text-gray-500 whitespace-nowrap overflow-x-hidden text-ellipsis"
   >
     <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-16">
+      <div class="w-48">
         <span class="text-gray-900">{{ item.command }}</span>
       </div>
     </td>
     <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-16">
-        <span class="text-gray-900">{{ item.next_command }}</span>
-      </div>
-    </td>
-    <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-8">
-        <span class="text-gray-900">{{ item.question }}</span>
-      </div>
-    </td>
-    <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-8">
+      <div class="w-48">
         <span class="text-gray-900">{{ item.message }}</span>
       </div>
     </td>
     <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-8">
-        <span class="text-gray-900">{{ item.menu }}</span>
-      </div>
-    </td>
-    <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-8">
+      <div class="w-48">
         <span
           class="inline-flex rounded-full text-[#4f46e5] px-2 mr-2 text-xs font-normal leading-5 bg-[#ebf4ff]"
         >
-          {{ item.file }}
+          {{ item.next_command }}
         </span>
       </div>
     </td>
     <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-8">
-        <span
-          class="inline-flex rounded-full text-[#4f46e5] px-2 mr-2 text-xs font-normal leading-5 bg-[#ebf4ff]"
-        >
-          {{ item.buttons }}
-        </span>
-      </div>
-    </td>
-    <td class="text-start px-2 py-1 truncate last:border-b">
-      <div class="w-8">
-        <span
-          class="inline-flex rounded-full text-[#4f46e5] px-2 mr-2 text-xs font-normal leading-5 bg-[#ebf4ff]"
-        >
-          {{ item.message_type }}
-        </span>
+      <div class="w-48">
+        <span class="text-gray-900">{{ item.buttons }}</span>
       </div>
     </td>
     <!-- Меню для действия с элементом -->
@@ -237,10 +209,9 @@ const props = defineProps({
     required: true,
   },
 })
-console.log(props.item.command)
 const isOpen = ref(false)
 const selectedOption = ref('Select an option')
-
+console.log(props.item)
 const handleClickOutside = (event) => {
   if (!event.target.closest('.relative')) {
     isOpen.value = false

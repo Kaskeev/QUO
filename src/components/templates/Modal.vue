@@ -33,7 +33,7 @@
         <form @submit.prevent="submitForm">
           <div>
             <div class="grid grid-cols-6 gap-6 mt-4 mb-2">
-              <div v-for="field in fields" :class="getFieldColumnClass(field)">
+              <div v-for="field in fields" :class="`col-span-${field.col}`">
                 <template v-if="field.type === 'input'">
                   <label
                     class="block font-medium text-sm text-gray-700"
@@ -47,7 +47,7 @@
                     class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
                     type="text"
                     :id="`edit-${field.id}`"
-                    :value="field.title"
+                    v-model="fieldValues[field.id]"
                     required
                   />
                 </template>
@@ -63,7 +63,7 @@
                   <select
                     class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2 select-style"
                     :id="`edit-${field.id}`"
-                    v-model="field.selectedChoice"
+                    v-model="fieldValues[field.id]"
                   >
                     <option
                       class="relative form-text-color cursor-default select-none py-2 pl-10 pr-4"
@@ -90,10 +90,9 @@
                   </label>
                   <div>
                     <textarea
-                      :class="getFieldTextareaClass()"
                       class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
                       :id="`edit-${field.id}`"
-                      :value="field.title"
+                      v-model="fieldValues[field.id]"
                       required
                     ></textarea>
                   </div>
@@ -111,14 +110,7 @@
 </template>
 
 <script>
-import {
-  ref,
-  defineComponent,
-  onMounted,
-  computed,
-  onBeforeMount,
-  defineProps,
-} from 'vue'
+import { ref, defineComponent, onMounted, computed, onBeforeMount } from 'vue'
 
 export default defineComponent({
   name: 'Modal',
@@ -139,29 +131,27 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    fieldsValues: Object,
   },
   methods: {
-    getFieldColumnClass(field) {
-      return field.type === 'textarea' ? 'col-span-6' : 'col-span-2'
+    handleSubmit() {
+      this.$emit('submitForm', fieldValues.value)
     },
-    getFieldTextareaClass() {
-      return 'w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2'
+    closeModal() {
+      this.$emit('closeModal')
     },
   },
   setup(props, { emit }) {
-    console.log(props.fields[1].id)
-    const command = ref('')
-    const next_command = ref('')
-    const file = ref('')
     const newItem = ref(true)
+    const fieldValues = ref({})
     onMounted(() => {
       if (props.item) {
-        command.value = props.item.title
-        next_command.value = props.item.description
-        file.value = props.item.btn
-        newItem.value = false
+        props.fields.forEach((field) => {
+          fieldValues.value[field.id] = props.item[field.id]
+        })
       }
     })
+    console.log(fieldValues.value)
     onBeforeMount(() => {
       props.fields.forEach((field) => {
         if (field.type === 'select') {
@@ -170,32 +160,25 @@ export default defineComponent({
       })
     })
     const submitForm = () => {
-      emit(
-        'submitForm',
-        props.item,
-        command.value,
-        next_command.value,
-        file.value,
-        newItem.value,
-      )
+      const values = { ...fieldValues.value }
+      emit('submitForm', values, newItem)
     }
-
+    console.log(newItem)
     const modalTitle = computed(() => {
-      if (props.item == null) {
-        return props.title
-      } else if (props.item === '') {
-        return props.title
-      } else {
+      if (props.item === null) {
+        return 'Добавление'
+      } else if (typeof props.item === 'object') {
         return 'Редактирование'
+      } else {
+        return props.title
       }
     })
 
     return {
-      file,
-      command,
-      file,
+      newItem,
       submitForm,
       modalTitle,
+      fieldValues,
     }
   },
 })

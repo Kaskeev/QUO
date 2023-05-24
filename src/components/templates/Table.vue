@@ -34,7 +34,7 @@
           <Modal
             v-if="showModal"
             :show="showModal"
-            @submitForm="submitForm"
+            @submitForm="submitForm(item, fieldsValues, true)"
             @closeModal="closeModal"
             :item="selectedItem"
             :title="modal.title"
@@ -43,7 +43,7 @@
             <template #buttons>
               <button
                 class="inline-flex items-center rounded-md border border-transparent bg-indigo-400 px-4 py-2 text-sm font-normal text-white transition hover:bg-indigo-500 focus:outline-none disabled:opacity-25"
-                type="submit"
+                @click="$emit('submitForm', fieldsValues, true)"
               >
                 Сохранить
               </button>
@@ -72,7 +72,7 @@
           <thead>
             <th
               v-for="name in tableHeaders.names"
-              class="w-16 px-2 py-1 font-normal text-gray-600 truncate"
+              class="w-48 px-2 py-1 font-normal text-gray-600 truncate"
             >
               <div class="justify-start flex items-center">
                 <template v-if="name.bool === true">
@@ -114,9 +114,9 @@
           <TodoItem
             v-for="item in paginatedItems"
             :key="item.id"
-            :item="item"
-            @deleteItem="deleteItem"
-            @editItem="editItem"
+            :item="item.fieldsValues"
+            @deleteItem="deleteItem(item.id)"
+            @editItem="editItem(item)"
           />
         </table>
       </div>
@@ -254,21 +254,21 @@ export default defineComponent({
         currentPage.value -= 1
       }
     }
-
+    const fieldsValues = ref({})
     const myTitle = 'Скачать'
 
-    const addItem = (command, next_command, file) => {
-      if (props.items && Array.isArray(props.items)) {
+    const addItem = (fieldsValues) => {
+      if (props.items) {
         const newItem = {
           id: Math.floor(Math.random() * 100000),
-          command,
-          next_command,
-          command,
+          fieldsValues,
         }
         props.items.push(newItem)
         showModal.value = false
       }
     }
+
+    console.log(props.item)
     const deleteItem = (id) => {
       const index = props.items.findIndex((item) => item.id === id)
       props.items.splice(index, 1)
@@ -276,40 +276,30 @@ export default defineComponent({
     const editItem = (item) => {
       selectedItem.value = item
       showModal.value = true
-      console.log('dsf')
     }
     const closeModal = () => {
       selectedItem.value = null
       showModal.value = false
     }
 
-    const updateItem = (item, command, next_command, file) => {
-      item.command = command
-      item.next_command = next_command
-      item.file = file
+    const updateItem = (item, fieldsValues) => {
+      item.fieldsValues = fieldsValues
       selectedItem.value = null
       showModal.value = false
     }
-
-    const submitForm = (item, command, next_command, file, newItem) => {
+    const submitForm = (item, fieldsValues, newItem) => {
       if (newItem) {
         const newObj = {
           id: Math.floor(Math.random() * 100000),
-          command,
-          next_command,
-          file,
+          fieldsValues,
         }
         props.items.push(newObj)
       } else {
-        item.command = command
-        item.next_command = next_command
-        item.file = file
+        Object.assign(item.fieldsValues, fieldsValues)
       }
-      console.log(newItem)
       closeModal()
     }
     const applyButton = ref(null)
-
     return {
       currentPage,
       paginatedItems,
@@ -330,15 +320,8 @@ export default defineComponent({
       displayRangeEnd,
       closeModal,
       submitForm,
+      fieldsValues,
     }
-  },
-  watch: {
-    'modal.title': {
-      immediate: true,
-      handler(value) {
-        console.log('Значение modal.title:', value)
-      },
-    },
   },
 })
 </script>

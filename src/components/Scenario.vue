@@ -28,7 +28,7 @@ export default defineComponent({
         { id: 'command', title: 'Команда', bool: true },
         { id: 'text__message', title: 'Текст Сообщения' },
         { id: 'button', title: 'Кнопки' },
-        { id: 'next__command', title: 'Следующая команда' },
+        { id: 'next_command', title: 'Следующая команда' },
       ],
     }
 
@@ -38,28 +38,26 @@ export default defineComponent({
       },
       {
         command: 'Lorem',
-        next_command: 'Ipsum',
-        file: 'Lorem',
-        message_type: 'Сообщение',
-        question: 'Ipsum',
-        buttons: 'Inline',
         message: 'Ipsum',
-        menu: 'Ipsum',
+        buttons: 'Кнопки',
+        next_command: 'Следующее сообщение',
       },
     ]
     const modal = {
-      title: 'Добавление',
+      title: 'Команда',
       fields: [
         {
           id: 'command',
           title: 'Команда',
           type: 'input',
+          col: '2',
         },
 
         {
           id: 'message_type',
           title: 'Тип сообщения',
           type: 'select',
+          col: '2',
           choice: [
             'Сообщение',
             'Фото',
@@ -77,32 +75,38 @@ export default defineComponent({
           id: 'question',
           title: 'Вопрос',
           type: 'input',
+          col: '2',
         },
         {
           id: 'next_command',
           title: 'Следующее сообщение',
           type: 'input',
+          col: '2',
         },
         {
           id: 'file',
           title: 'Файл',
           type: 'input',
+          col: '2',
         },
         {
           id: 'buttons',
           title: 'Тип кнопок',
           type: 'select',
           choice: ['Inline', 'Обычные', 'Inline_list'],
+          col: '2',
         },
         {
           id: 'message',
           title: 'Текст сообщения',
           type: 'textarea',
+          col: '6',
         },
         {
           id: 'menu',
           title: 'Меню',
           type: 'textarea',
+          col: '6',
         },
       ],
     }

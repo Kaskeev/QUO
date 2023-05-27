@@ -1,4 +1,4 @@
-<!-- <template v-for="filters in filters">
+<template>
   <div data-headlessui-state="" class="flex inline-flex text-left mr-1">
     <div
       class="relative border-dashed inline-flex mr-1 rounded-full border border-gray-300 p-1 pr-2 text-xs text-gray-400 w-max my-0.5"
@@ -118,16 +118,16 @@ export default defineComponent({
     }
 
     const openWindow = () => {
-      closeAllWindows() 
+      closeAllWindows()
       isOpen.value = true
-      openedWindows.value.push(isOpen) 
+      openedWindows.value.push(isOpen)
     }
 
     const closeAllWindows = () => {
       openedWindows.value.forEach((window) => {
         window.value = false
       })
-      openedWindows.value = [] 
+      openedWindows.value = []
     }
 
     const selectOption = () => {
@@ -157,6 +157,4 @@ export default defineComponent({
     window.removeEventListener('click', handleClickOutside)
   },
 })
-</script> -->
-<template></template>
-<script></script>
+</script>

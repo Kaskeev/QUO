@@ -6,14 +6,14 @@
       <div class="relative h-full items-center flex rounded-lg">
         <div class="truncate">
           <button
-            @click="isOpenOption = !isOpenOption"
+            @click="isOpenOptionleft = !isOpenOptionleft"
             type="button"
             id="options-menu"
             aria-haspopup="true"
-            :aria-expanded="isOpenOption"
+            :aria-expanded="isOpenOptionleft"
             class="flex max-w-xs cursor-pointer items-center py-1.5 text-sm focus:outline-none focus:ring-0 focus:ring-offset-0"
           >
-            {{ selectedOption ? selectedOption.label : '' }}
+            {{ selectedOptionLeft ? selectedOptionLeft.label : '' }}
             <img
               class="h-8 w-8 rounded-full"
               src="https://ui-avatars.com/api/?name=%D0%AD&amp;color=7F9CF5&amp;background=EBF4FF"
@@ -48,8 +48,8 @@
             leave-to-class="opacity-0 scale-95"
           >
             <div
-              v-show="isOpenOption"
-              v-if="isOpenOption"
+              v-show="isOpenOptionLeft"
+              v-if="isOpenOptionLeft"
               class="absolute z-20 mt-4 w-screen max-w-xs -translate-x-1/2 transform px-1"
               role="menu"
               aria-orientation="vertical"
@@ -59,10 +59,10 @@
                 class="p-2 bg-white flex flex-col overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
                 role="none"
               >
-                <template v-for="option in options">
+                <template v-for="option in optionsLeft">
                   <a
                     href="#"
-                    @click.prevent="selectOption(option)"
+                    @click.prevent="selectOptionLeft(option)"
                     class="w-1/2 hover:bg-gray-200 text-black flex items-center rounded-lg p-3 transition duration-150 ease-in-out px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none focus:bg-gray-100 transition active:outline-none"
                     role="menuitem"
                   >
@@ -88,15 +88,15 @@ export default {
   name: 'Dropdown',
 
   setup() {
-    const isOpenOption = ref(false)
-    const selectedOption = ref(null)
+    const isOpenOptionLeft = ref(false)
+    const selectedOptionLeft = ref(null)
     const handleClickOutside = (event) => {
       if (!event.target.closest('.relative')) {
-        isOpenOption.value = false
+        isOpenOptionLeft.value = false
       }
     }
 
-    const options = [
+    const optionsLeft = [
       {
         id: 1,
         label: 'Рассылка',
@@ -109,26 +109,21 @@ export default {
       },
     ]
 
-    const selectOption = (option) => {
-      selectedOption.value = option
-      isOpenOption.value = false
+    const selectOptionLeft = (option) => {
+      selectedOptionLeft.value = option
+      isOpenOptionLeft.value = false
     }
     window.addEventListener('click', handleClickOutside)
 
     return {
-      isOpenOption,
-      selectedOption,
-      options,
-      selectOption,
+      isOpenOptionLeft,
+      selectedOptionLeft,
+      optionsLeft,
+      selectOptionLeft,
     }
   },
   beforeUnmount() {
     window.removeEventListener('click', this.handleClickOutside)
-  },
-  data() {
-    return {
-      isOpen: false,
-    }
   },
 }
 </script>

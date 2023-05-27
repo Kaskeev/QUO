@@ -35,16 +35,17 @@ export default defineComponent({
     const items = [
       {
         command: 'Команда',
+        id: 1,
       },
       {
         command: 'Lorem',
         message: 'Ipsum',
         buttons: 'Кнопки',
         next_command: 'Следующее сообщение',
+        id: 2,
       },
     ]
     const modal = {
-      title: 'Команда',
       fields: [
         {
           id: 'command',
@@ -57,7 +58,7 @@ export default defineComponent({
           id: 'message_type',
           title: 'Тип сообщения',
           type: 'select',
-          colSpan: '2',
+          colSpan: 2,
           choice: [
             'Сообщение',
             'Фото',

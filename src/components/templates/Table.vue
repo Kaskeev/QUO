@@ -57,11 +57,11 @@
       class="mt-4 relative py-2 w-full divide-gray-200 z-5 border-t border-gray-300"
     >
       <div class="w-full pr-24">
-        <!-- <Filters
+        <Filters
           v-for="filter in filters"
           :key="filter.name"
           :name="filter.name"
-        /> -->
+        />
       </div>
     </div>
     <div class="inline-block min-w-full relative">
@@ -196,6 +196,7 @@
 import { defineComponent, ref, watch } from 'vue'
 import TodoItem from './TodoItem.vue'
 import Modal from './Modal.vue'
+import Filters from './Filters.vue'
 import DownloadExcel from './DownloadExcel.vue'
 import { computed } from 'vue'
 
@@ -207,11 +208,13 @@ export default defineComponent({
     tableHeaders: Object,
     items: Array,
     modal: Array,
+    Filters: Array,
   },
   components: {
     TodoItem,
     Modal,
     DownloadExcel,
+    Filters,
   },
 
   setup(props) {
@@ -285,7 +288,7 @@ export default defineComponent({
       selectedItem.value = null
       showModal.value = false
     }
-    const submitForm = (fieldsValues, item, newItem = true) => {
+    const submitForm = (fieldsValues, newItem = true) => {
       if (newItem) {
         const newObj = {
           id: Math.floor(Math.random() * 100000),
@@ -293,10 +296,19 @@ export default defineComponent({
         }
         props.items.push(newObj)
       } else {
-        Object.assign(item.fieldsValues, fieldsValues)
+        const newArr = props.items.map((item) => {
+          if (item.id === fieldsValues.id) {
+            return fieldsValues
+          }
+          return item
+        })
+        console.warn(newArr)
+        props.items = [...newArr]
+        // Object.assign(item.fieldsValues, fieldsValues)
       }
       closeModal()
     }
+
     const applyButton = ref(null)
     return {
       currentPage,

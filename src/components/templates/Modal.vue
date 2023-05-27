@@ -33,7 +33,7 @@
         <form @submit.prevent="submitForm">
           <div>
             <div class="grid grid-cols-6 gap-6 mt-4 mb-2">
-              <div v-for="field in fields" :class="`col-span-${field.col}`">
+              <div v-for="field in fields" :class="gridColumns[field.colSpan]">
                 <template v-if="field.type === 'input'">
                   <label
                     class="block font-medium text-sm text-gray-700"
@@ -135,20 +135,23 @@ export default defineComponent({
   },
   methods: {
     handleSubmit() {
-      this.$emit('submitForm', fieldValues.value)
+      this.$emit('submitForm', this.fieldValues)
     },
     closeModal() {
       this.$emit('closeModal')
     },
   },
   setup(props, { emit }) {
+    console.log(props.fields[0].colSpan)
     const newItem = ref(true)
-    const fieldValues = {}
+    const fieldValues = ref({})
     onMounted(() => {
       if (props.item) {
         props.fields.forEach((field) => {
           fieldValues.value[field.id] = props.item[field.id]
         })
+        fieldValues.value.id = props.item.id
+        newItem.value = false
       }
     })
     onBeforeMount(() => {
@@ -159,24 +162,30 @@ export default defineComponent({
       })
     })
     const submitForm = () => {
-      let values = { ...fieldValues }
-      emit('submitForm', values, newItem)
+      let values = { ...fieldValues.value }
+      emit('submitForm', values, newItem.value)
     }
+
     const modalTitle = computed(() => {
-      if (props.item === null) {
-        return 'Добавление'
-      } else if (typeof props.item === 'object') {
-        return 'Редактирование'
-      } else {
+      if (props.title) {
         return props.title
+      } else if (props.item === null) {
+        return 'Добавление'
+      } else {
+        return 'Редактирование'
       }
     })
+    const gridColumns = {
+      2: 'col-span-2',
+      6: 'col-span-6',
+    }
 
     return {
       newItem,
       submitForm,
       modalTitle,
       fieldValues,
+      gridColumns,
     }
   },
 })

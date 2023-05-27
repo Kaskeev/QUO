@@ -25,10 +25,10 @@ export default defineComponent({
     ]
     const tableHeaders = {
       names: [
-        { id: 'command', title: 'Команда', bool: true },
-        { id: 'text__message', title: 'Текст Сообщения' },
-        { id: 'button', title: 'Кнопки' },
-        { id: 'next_command', title: 'Следующая команда' },
+        { id: 'command', title: 'Команда', bool: true, width: 48 },
+        { id: 'text__message', title: 'Текст Сообщения', width: 48 },
+        { id: 'button', title: 'Кнопки', width: 48 },
+        { id: 'next_command', title: 'Следующая команда', width: 48 },
       ],
     }
 
@@ -57,7 +57,7 @@ export default defineComponent({
           id: 'message_type',
           title: 'Тип сообщения',
           type: 'select',
-          colSpan: 2,
+          colSpan: '2',
           choice: [
             'Сообщение',
             'Фото',

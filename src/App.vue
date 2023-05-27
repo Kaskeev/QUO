@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <div class="w-full h-screen mx-auto pt-4 mb-10 px-5 bg-gray-100">
+    <div class="w-full h-screen mx-auto pt-4 px-5 bg-gray-100">
       <div>
         <section class="md:max-w-2xl lg:max-w-3xl xl:max-w-screen-xl mx-auto">
           <router-view />
@@ -16,7 +16,6 @@
 <script>
 import Header from './components/Header.vue'
 import Contacts from './components/Contacts.vue'
-import Analytics from './components/Analytics.vue'
 export default {
   name: 'App',
   components: {

@@ -33,7 +33,7 @@
         <form @submit.prevent="submitForm">
           <div>
             <div class="grid grid-cols-6 gap-6 mt-4 mb-2">
-              <div v-for="field in fields" :class="`col-span-${field.colSpan}`">
+              <div v-for="field in fields" :class="`col-span-${field.col}`">
                 <template v-if="field.type === 'input'">
                   <label
                     class="block font-medium text-sm text-gray-700"
@@ -90,7 +90,7 @@
                   </label>
                   <div>
                     <textarea
-                      class="w-full text-sm border border-zinc-300 form-text-color h-15 rounded-md focus:outline-none focus:ring-0 focus:border-indigo-400 p-2"
+                      class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
                       :id="`edit-${field.id}`"
                       v-model="fieldValues[field.id]"
                       required
@@ -133,7 +133,6 @@ export default defineComponent({
     },
     fieldsValues: Object,
   },
-
   methods: {
     handleSubmit() {
       this.$emit('submitForm', fieldValues.value)
@@ -143,9 +142,8 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    console.log(props.fields[0].colSpan)
-    const fieldValues = ref({})
     const newItem = ref(true)
+    const fieldValues = {}
     onMounted(() => {
       if (props.item) {
         props.fields.forEach((field) => {
@@ -161,10 +159,9 @@ export default defineComponent({
       })
     })
     const submitForm = () => {
-      const values = { ...fieldValues.value }
+      let values = { ...fieldValues }
       emit('submitForm', values, newItem)
     }
-    console.log(newItem)
     const modalTitle = computed(() => {
       if (props.item === null) {
         return 'Добавление'

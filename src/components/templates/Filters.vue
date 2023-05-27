@@ -1,4 +1,4 @@
-<template>
+<!-- <template v-for="filters in filters">
   <div data-headlessui-state="" class="flex inline-flex text-left mr-1">
     <div
       class="relative border-dashed inline-flex mr-1 rounded-full border border-gray-300 p-1 pr-2 text-xs text-gray-400 w-max my-0.5"
@@ -20,7 +20,7 @@
         </svg>
         <svg
           v-else
-          @click="selectedOption = ''"
+          @click="clearOption"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
@@ -33,7 +33,7 @@
             clip-rule="evenodd"
           ></path>
         </svg>
-        {{ name }}
+        {{ filters.name }}
         <span class="text-indigo-500">
           {{ selectedOption ? ': ' + selectedOption : '' }}
         </span>
@@ -52,7 +52,6 @@
             itemsvalue="id"
             translate="false"
           />
-          <!--v-if-->
         </div>
         <button
           ref="applyButton"
@@ -69,9 +68,8 @@
     class="absolute bg-white block sm:inline-flex right-0 p-1.5 pb-0.5 top-1 rounded-md"
   >
     <button
-      @click="selectedOption = ''"
+      @click="clearOption"
       class="inline-flex ml-1 text-xs text-gray-400"
-      id="headlessui-popover-button-6"
       type="button"
       aria-expanded="false"
       data-headlessui-state=""
@@ -94,19 +92,17 @@
     <div
       data-headlessui-state=""
       class="relative flex flex-row-reverse text-left"
-    >
-      <!--v-if-->
-      <!---->
-    </div>
+    ></div>
   </div>
 </template>
 <script>
 import { defineComponent, ref } from 'vue'
+
 export default defineComponent({
   name: 'Filters',
   props: {
-    name: {
-      type: String,
+    filters: {
+      type: Array,
       required: true,
     },
   },
@@ -114,26 +110,53 @@ export default defineComponent({
     const isOpen = ref(false)
     const selectedOption = ref(null)
     const inputValue = ref('')
+    const openedWindows = ref([])
     const handleClickOutside = (event) => {
       if (!event.target.closest('.relative')) {
-        isOpen.value = false
+        closeAllWindows()
       }
     }
+
+    const openWindow = () => {
+      closeAllWindows() 
+      isOpen.value = true
+      openedWindows.value.push(isOpen) 
+    }
+
+    const closeAllWindows = () => {
+      openedWindows.value.forEach((window) => {
+        window.value = false
+      })
+      openedWindows.value = [] 
+    }
+
     const selectOption = () => {
       selectedOption.value = inputValue.value
-      isOpen.value = false
+      closeAllWindows()
     }
+
+    const clearOption = () => {
+      selectedOption.value = null
+      closeAllWindows()
+    }
+
     window.addEventListener('click', handleClickOutside)
+
     return {
       isOpen,
       selectedOption,
       inputValue,
+      openWindow,
+      closeAllWindows,
       selectOption,
-      handleClickOutside,
+      clearOption,
     }
   },
+
   beforeUnmount() {
     window.removeEventListener('click', handleClickOutside)
   },
 })
-</script>
+</script> -->
+<template></template>
+<script></script>

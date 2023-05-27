@@ -34,7 +34,7 @@
           <Modal
             v-if="showModal"
             :show="showModal"
-            @submitForm="submitForm(item, fieldsValues, true)"
+            @submitForm="submitForm"
             @closeModal="closeModal"
             :item="selectedItem"
             :title="modal.title"
@@ -57,11 +57,11 @@
       class="mt-4 relative py-2 w-full divide-gray-200 z-5 border-t border-gray-300"
     >
       <div class="w-full pr-24">
-        <Filters
+        <!-- <Filters
           v-for="filter in filters"
           :key="filter.name"
           :name="filter.name"
-        />
+        /> -->
       </div>
     </div>
     <div class="inline-block min-w-full relative">
@@ -112,7 +112,7 @@
             </th>
           </thead>
           <TodoItem
-            v-for="item in paginatedItems"
+            v-for="item in items"
             :key="item.id"
             :item="item"
             @deleteItem="deleteItem"
@@ -197,7 +197,6 @@ import { defineComponent, ref, watch } from 'vue'
 import TodoItem from './TodoItem.vue'
 import Modal from './Modal.vue'
 import DownloadExcel from './DownloadExcel.vue'
-import Filters from './Filters.vue'
 import { computed } from 'vue'
 
 export default defineComponent({
@@ -205,7 +204,6 @@ export default defineComponent({
   props: {
     title: String,
     wrap: String,
-    filters: Array,
     tableHeaders: Object,
     items: Array,
     modal: Array,
@@ -213,7 +211,6 @@ export default defineComponent({
   components: {
     TodoItem,
     Modal,
-    Filters,
     DownloadExcel,
   },
 
@@ -226,12 +223,14 @@ export default defineComponent({
     const totalPages = computed(() =>
       Math.ceil(props.items.length / itemsPerPage),
     )
-
     const paginatedItems = computed(() => {
       const startIndex = (currentPage.value - 1) * itemsPerPage
       const endIndex = startIndex + itemsPerPage
+      console.log(startIndex, endIndex, props.items.slice(startIndex, endIndex))
       return props.items.slice(startIndex, endIndex)
     })
+    console.log(paginatedItems)
+
     const displayRangeStart = computed(() => {
       const startIndex = (currentPage.value - 1) * itemsPerPage + 1
       const totalItems = props.items.length
@@ -254,6 +253,7 @@ export default defineComponent({
         currentPage.value -= 1
       }
     }
+    const fieldsValues = ref({})
     const myTitle = 'Скачать'
 
     const addItem = (fieldsValues) => {
@@ -266,7 +266,6 @@ export default defineComponent({
         showModal.value = false
       }
     }
-
     const deleteItem = (id) => {
       const index = props.items.findIndex((item) => item.id === id)
       props.items.splice(index, 1)
@@ -282,14 +281,15 @@ export default defineComponent({
 
     const updateItem = (fieldsValues) => {
       item.fieldsValues = fieldsValues
+      console.log(fieldsValues)
       selectedItem.value = null
       showModal.value = false
     }
-    const submitForm = (item, fieldsValues, newItem) => {
+    const submitForm = (fieldsValues, item, newItem = true) => {
       if (newItem) {
         const newObj = {
           id: Math.floor(Math.random() * 100000),
-          fieldsValues,
+          ...fieldsValues,
         }
         props.items.push(newObj)
       } else {
@@ -318,6 +318,7 @@ export default defineComponent({
       displayRangeEnd,
       closeModal,
       submitForm,
+      fieldsValues,
     }
   },
 })

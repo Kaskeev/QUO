@@ -199,7 +199,7 @@ import {
   TrashIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-} from '@heroicons/vue/20/solid'
+} from '@heroicons/vue/24/outline'
 
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 

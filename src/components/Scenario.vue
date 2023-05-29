@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import Table from './templates/Table.vue'
 export default defineComponent({
   name: 'Scenario',
@@ -18,11 +18,11 @@ export default defineComponent({
   },
   setup() {
     const title = 'Сценарий'
-    const filters = [
-      { name: 'Команда' },
-      { name: 'Текст Сообщения' },
-      { name: 'Кнопки' },
-    ]
+    const filters = reactive([
+      { name: 'Команда', value: '', inputValue: '' },
+      { name: 'Текст Сообщения', value: '', inputValue: '' },
+      { name: 'Кнопки', value: '', inputValue: '' },
+    ])
     const tableHeaders = {
       names: [
         { id: 'command', title: 'Команда', bool: true, width: 48 },

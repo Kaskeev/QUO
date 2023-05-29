@@ -67,6 +67,18 @@
                   >
                     <option
                       class="relative form-text-color cursor-default select-none py-2 pl-10 pr-4"
+                      :value="field.choice[0]"
+                      :key="field.choice[0]"
+                      v-if="!fieldValues[field.id]"
+                    >
+                      <span
+                        class="font-normal block truncate text-xs md:text-sm"
+                      >
+                        {{ field.choice[0] }}
+                      </span>
+                    </option>
+                    <option
+                      class="relative form-text-color cursor-default select-none py-2 pl-10 pr-4"
                       v-for="choice in field.choice"
                       :value="choice"
                       :key="choice"
@@ -152,6 +164,11 @@ export default defineComponent({
         })
         fieldValues.value.id = props.item.id
         newItem.value = false
+      }
+    })
+    props.fields.forEach((field) => {
+      if (field.type === 'select') {
+        fieldValues.value[field.id] = field.choice[0]
       }
     })
     onBeforeMount(() => {

@@ -57,11 +57,7 @@
       class="mt-4 relative py-2 w-full divide-gray-200 z-5 border-t border-gray-300"
     >
       <div class="w-full pr-24">
-        <Filters
-          v-for="filter in filters"
-          :key="filter.name"
-          :name="filter.name"
-        />
+        <Filter />
       </div>
     </div>
     <div class="inline-block min-w-full relative">
@@ -196,7 +192,7 @@
 import { defineComponent, ref, watch } from 'vue'
 import TodoItem from './TodoItem.vue'
 import Modal from './Modal.vue'
-import Filters from './Filters.vue'
+import Filter from './Filter.vue'
 import DownloadExcel from './DownloadExcel.vue'
 import { computed } from 'vue'
 
@@ -214,7 +210,7 @@ export default defineComponent({
     TodoItem,
     Modal,
     DownloadExcel,
-    Filters,
+    Filter,
   },
 
   setup(props) {

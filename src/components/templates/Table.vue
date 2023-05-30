@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white px-4 py-2 mb-5 rounded-lg shadow">
+  <div class="bg-white px-4 py-2 mb-5 rounded-lg border border-zinc-300">
     <div class="flex flex-wrap items-center space-y-2">
       <div class="flex-auto">
         <h1 class="text-xl md:text-3xl font-semibold text-gray-900">

@@ -7,7 +7,7 @@
         class="flex w-full items-center justify-between md:bg-white lg:bg-inherit md:rounded-lg md:shadow lg:shadow-none"
       >
         <div
-          class="hidden items-center lg:rounded-lg md:rounded-l-lg bg-white pr-0 px-1.5 py-1 lg:shadow md:flex"
+          class="hidden items-center lg:rounded-lg md:rounded-l-lg bg-white pr-0 px-1.5 py-1 lg:border lg:border-zinc-300 md:flex"
         >
           <router-link
             to="/"
@@ -81,7 +81,7 @@
                 aria-labelledby="options-menu"
               >
                 <div
-                  class="p-2 bg-white flex flex-wrap overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+                  class="p-2 bg-white border border-zinc-300 flex flex-wrap overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
                   role="none"
                 >
                   <template v-for="option in options">
@@ -104,7 +104,7 @@
           </div>
         </div>
         <div
-          class="mx-auto mr-0 pl-0 lg:pl-2 px-0 cursor-pointer bg-white rounded-lg lg:shadow shadow-none"
+          class="mx-auto mr-0 pl-0 lg:pl-2 px-0 cursor-pointer bg-white rounded-lg lg:border lg:border-zinc-300 shadow-none"
         >
           <div class="ml-0 hidden items-center md:flex">
             <div class="relative h-full items-center flex rounded-lg">
@@ -154,7 +154,7 @@
                   <div
                     v-show="isOpenOptionLeft"
                     v-if="isOpenOptionLeft"
-                    class="absolute z-20 mt-4 w-screen max-w-xs -translate-x-1/2 transform px-1"
+                    class="absolute z-50 mt-2 rounded-md shadow-sm border border-zinc-300 origin-top-right -right-px"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="options-menu"
@@ -167,7 +167,7 @@
                         <a
                           href="#"
                           @click.prevent="selectOptionLeft(option)"
-                          class="w-1/2 hover:bg-gray-200 text-black flex items-center rounded-lg p-3 transition duration-150 ease-in-out px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none focus:bg-gray-100 transition active:outline-none"
+                          class="w-full hover:bg-gray-200 text-black flex items-center rounded-lg p-3 transition duration-150 ease-in-out px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none focus:bg-gray-100 transition active:outline-none"
                           role="menuitem"
                         >
                           <img

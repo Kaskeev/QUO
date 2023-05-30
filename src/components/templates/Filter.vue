@@ -173,9 +173,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-button {
-  z-index: 1000;
-}
-</style>

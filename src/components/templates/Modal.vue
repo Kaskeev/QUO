@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed inset-0 z-10 flex items-center justify-center bg-gray-500 bg-opacity-50"
+    class="overflow-hidden fixed inset-0 z-10 flex items-center justify-center bg-gray-500 bg-opacity-50"
     v-if="show"
     @click.self="$emit('closeModal')"
   >
@@ -60,36 +60,7 @@
                       {{ field.title }}
                     </span>
                   </label>
-                  <select
-                    class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2 select-style"
-                    :id="`edit-${field.id}`"
-                    v-model="fieldValues[field.id]"
-                  >
-                    <option
-                      class="relative form-text-color cursor-default select-none py-2 pl-10 pr-4"
-                      :value="field.choice[0]"
-                      :key="field.choice[0]"
-                      v-if="!fieldValues[field.id]"
-                    >
-                      <span
-                        class="font-normal block truncate text-xs md:text-sm"
-                      >
-                        {{ field.choice[0] }}
-                      </span>
-                    </option>
-                    <option
-                      class="relative form-text-color cursor-default select-none py-2 pl-10 pr-4"
-                      v-for="choice in field.choice"
-                      :value="choice"
-                      :key="choice"
-                    >
-                      <span
-                        class="font-normal block truncate text-xs md:text-sm"
-                      >
-                        {{ choice }}
-                      </span>
-                    </option>
-                  </select>
+                  <Home :field="field.choice" />
                 </template>
                 <template v-if="field.type === 'textarea'">
                   <label
@@ -102,7 +73,7 @@
                   </label>
                   <div>
                     <textarea
-                      class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-10 focus:ring-0 focus:border-indigo-400 p-2"
+                      class="w-full text-sm border border-zinc-300 form-text-color rounded-md focus:outline-none h-32 focus:ring-0 focus:border-indigo-400 p-2"
                       :id="`edit-${field.id}`"
                       v-model="fieldValues[field.id]"
                       required
@@ -123,9 +94,12 @@
 
 <script>
 import { ref, defineComponent, onMounted, computed, onBeforeMount } from 'vue'
-
+import Home from '../Home.vue'
 export default defineComponent({
   name: 'Modal',
+  components: {
+    Home,
+  },
   props: {
     show: {
       type: Boolean,
@@ -154,7 +128,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    console.log(props.fields[0].colSpan)
+    console.log(props.fields)
     const newItem = ref(true)
     const fieldValues = ref({})
     onMounted(() => {

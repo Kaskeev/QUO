@@ -158,7 +158,7 @@ export default {
     const clearFilterValue = (filter) => {
       if (filter.value) {
         filter.value = ''
-        filter.preventOpen = false // Установка значения false
+        filter.preventOpen = false
       } else {
         filter.preventOpen = true
       }

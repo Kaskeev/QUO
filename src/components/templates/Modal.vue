@@ -60,7 +60,10 @@
                       {{ field.title }}
                     </span>
                   </label>
-                  <Home :field="field.choice" />
+                  <Select
+                    :field="field.choice"
+                    v-model="fieldValues[field.id]"
+                  />
                 </template>
                 <template v-if="field.type === 'textarea'">
                   <label
@@ -94,11 +97,11 @@
 
 <script>
 import { ref, defineComponent, onMounted, computed, onBeforeMount } from 'vue'
-import Home from '../Home.vue'
+import Select from './Select.vue'
 export default defineComponent({
   name: 'Modal',
   components: {
-    Home,
+    Select,
   },
   props: {
     show: {

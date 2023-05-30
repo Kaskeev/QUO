@@ -113,6 +113,7 @@
             :item="item"
             @deleteItem="deleteItem"
             @editItem="editItem"
+            @addItem="addItem"
           />
         </table>
       </div>
@@ -267,7 +268,9 @@ export default defineComponent({
     }
     const deleteItem = (id) => {
       const index = props.items.findIndex((item) => item.id === id)
-      props.items.splice(index, 1)
+      if (index !== -1) {
+        props.items.splice(index, 1)
+      }
     }
     const editItem = (item) => {
       selectedItem.value = item
@@ -284,13 +287,18 @@ export default defineComponent({
       selectedItem.value = null
       showModal.value = false
     }
+
     const submitForm = (fieldsValues, newItem = true) => {
-      if (newItem) {
-        const newObj = {
-          id: Math.floor(Math.random() * 100000),
-          ...fieldsValues,
+      if (!newItem) {
+        const index = props.items.findIndex(
+          (item) => item.id === fieldsValues.id,
+        )
+        if (index !== -1) {
+          props.items[index] = {
+            ...props.items[index],
+            ...fieldsValues,
+          }
         }
-        props.items.push(newObj)
       } else {
         const newArr = props.items.map((item) => {
           if (item.id === fieldsValues.id) {
@@ -300,11 +308,10 @@ export default defineComponent({
         })
         console.warn(newArr)
         props.items = [...newArr]
-        // Object.assign(item.fieldsValues, fieldsValues)
       }
       closeModal()
     }
-
+    submitForm(fieldsValues, false)
     const applyButton = ref(null)
     return {
       currentPage,

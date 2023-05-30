@@ -69,9 +69,10 @@
                 <ListboxOptions
                   class="origin-top-right z-20 absolute right-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-zinc-100 focus:outline-none"
                 >
-                  <ListboxOption class="cursor">
+                  <ListboxOption class="cursor-pointer">
                     <a
-                      class="cursor text-zinc-500 group flex items-center px-4 py-2"
+                      @click="$emit('editItem', item)"
+                      class="pointer text-zinc-500 group flex items-center px-4 py-2"
                     >
                       <PencilIcon
                         class="h-4 w-4 text-gray-500 mr-1"
@@ -79,7 +80,10 @@
                       />
                       Редактировать
                     </a>
-                    <a class="text-zinc-500 group flex items-center px-4 py-2">
+                    <a
+                      @click="$emit('addItem', item)"
+                      class="text-zinc-500 group flex items-center px-4 py-2"
+                    >
                       <PlusIcon
                         class="h-4 w-4 text-gray-500 mr-1"
                         aria-hidden="true"
@@ -107,7 +111,10 @@
                       />
                       Вниз
                     </a>
-                    <a class="text-zinc-500 group flex items-center px-4 py-2">
+                    <a
+                      @click="$emit('deleteItem', item)"
+                      class="text-zinc-500 group flex items-center px-4 py-2"
+                    >
                       <TrashIcon
                         class="h-4 w-4 text-gray-500 mr-1"
                         aria-hidden="true"
@@ -149,7 +156,6 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/vue'
-
 const props = defineProps({
   item: {
     type: Object,

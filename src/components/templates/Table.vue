@@ -186,6 +186,7 @@
         </button>
       </div>
     </nav>
+    <ResponsiveMenu />
   </div>
 </template>
 
@@ -194,6 +195,7 @@ import { defineComponent, ref, watch } from 'vue'
 import TodoItem from './TodoItem.vue'
 import Modal from './Modal.vue'
 import Filter from './Filter.vue'
+import ResponsiveMenu from './ResponsiveMenu.vue'
 import DownloadExcel from './DownloadExcel.vue'
 import { computed } from 'vue'
 
@@ -212,6 +214,7 @@ export default defineComponent({
     Modal,
     DownloadExcel,
     Filter,
+    ResponsiveMenu,
   },
 
   setup(props) {

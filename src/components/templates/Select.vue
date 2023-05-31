@@ -5,7 +5,9 @@
         <ListboxButton
           class="w-full block relative w-full cursor-default form-text-color rounded-md bg-white h-10 pl-3 pr-3 sm:pr-10 text-left focus:outline-none focus-visible:border-indigo-500 text-xs md:text-sm border border-zinc-300"
         >
-          <span class="block truncate">{{ selectedField.name }}</span>
+          <span class="block truncate cursor-pointer">
+            {{ selectedField.name }}
+          </span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
@@ -22,7 +24,7 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
             <ListboxOption
               v-slot="{ active, selected }"
@@ -34,13 +36,13 @@
               <li
                 :class="[
                   active ? 'bg-indigo-100' : 'text-gray-900',
-                  'relative cursor-default select-none py-2 pl-10 pr-4',
+                  'relative  cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
                 <span
                   :class="[
                     selected ? 'font-normal' : 'font-normal',
-                    'block truncate ',
+                    'block truncate  cursor-pointer ',
                   ]"
                 >
                   {{ select.name }}

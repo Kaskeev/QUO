@@ -13,6 +13,7 @@
             v-model="filter.value"
             v-slot="{ open }"
             class="inline-flex focus:outline-none"
+            @click.stop="filter.value && clearFilterValue(filter)"
           >
             <svg
               v-if="filter.value"
@@ -20,8 +21,8 @@
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"
-              class="text-indigo-400 w-4 mr-1 cursor-pointer"
-              @click="clearFilterValue(filter)"
+              @click.stop="clearFilterValue(filter)"
+              class="svg-icon text-indigo-400 w-4 mr-1 cursor-pointer"
             >
               <path
                 fill-rule="evenodd"
@@ -156,12 +157,8 @@ export default {
       })
     }
     const clearFilterValue = (filter) => {
-      if (filter.value) {
-        filter.value = ''
-        filter.preventOpen = false
-      } else {
-        filter.preventOpen = true
-      }
+      filter.value = ''
+      filter.inputValue = ''
     }
     console.log(inputData)
     return {
@@ -173,3 +170,8 @@ export default {
   },
 }
 </script>
+<style>
+.svg-icon {
+  z-index: 199;
+}
+</style>

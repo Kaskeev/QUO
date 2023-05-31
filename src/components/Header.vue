@@ -167,7 +167,7 @@
                         <a
                           href="#"
                           @click.prevent="selectOptionLeft(option)"
-                          class="w-full hover:bg-gray-200 text-black flex items-center rounded-lg p-3 transition duration-150 ease-in-out px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none focus:bg-gray-100 transition active:outline-none"
+                          class="w-52 hover:bg-gray-200 text-black flex items-center rounded-lg p-3 transition duration-150 ease-in-out px-4 py-2 text-sm leading-5 text-gray-700 focus:outline-none focus:bg-gray-100 transition active:outline-none"
                           role="menuitem"
                         >
                           <img
@@ -201,35 +201,21 @@
       <span
         class="ml-3 lg:max-w-[68px] xl:max-w-full overflow-x-hidden text-ellipsis whitespace-nowrap text-sm font-medium text-gray-700 md:hidden lg:flex"
       >
-        Eldiyar Team
+        Eldiyar's Team
       </span>
-      <button
-        class="m-1 -mr-1 inline-flex items-center justify-center p-1 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-offset-0"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-          class="block h-6 w-6 stroke-1"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          ></path>
-        </svg>
-      </button>
+      <ResponsiveMenu :optionsLeft="optionsLeft" :options="options" />
     </div>
   </div>
 </template>
 <script>
 import { ref } from 'vue'
 import { defineComponent } from 'vue'
+import ResponsiveMenu from '../components/templates/ResponsiveMenu.vue'
 export default defineComponent({
   name: 'Header',
+  components: {
+    ResponsiveMenu,
+  },
   beforeUnmount() {
     document.removeEventListener('click', this.closeDropdown)
   },
@@ -262,7 +248,7 @@ export default defineComponent({
       isOpenOption.value = !isOpenOption.value
       isOpenOptionLeft.value = false
     }
-    const optionsLeft = [
+    const optionsLeft = ref([
       {
         id: 1,
         label: 'Рассылка',
@@ -273,13 +259,13 @@ export default defineComponent({
         label: 'Общие',
         imagePath: require('@/assets/svg/settings.svg'),
       },
-    ]
+    ])
 
     const selectOptionLeft = (option) => {
       selectedOptionLeft.value = option
       isOpenOptionLeft.value = false
     }
-    const options = [
+    const options = ref([
       {
         id: 1,
         label: 'Рассылка',
@@ -320,7 +306,7 @@ export default defineComponent({
         label: 'Оплата сервиса',
         imagePath: require('@/assets/svg/cost.svg'),
       },
-    ]
+    ])
 
     const selectOption = (option) => {
       selectedOption.value = option

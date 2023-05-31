@@ -69,10 +69,10 @@
                 <ListboxOptions
                   class="origin-top-right z-20 absolute right-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-zinc-100 focus:outline-none"
                 >
-                  <ListboxOption class="cursor-pointer">
+                  <ListboxOption>
                     <a
                       @click="$emit('editItem', item)"
-                      class="pointer text-zinc-500 group flex items-center px-4 py-2"
+                      class="hover:bg-gray-100 cursor-pointer text-zinc-500 group flex items-center px-4 py-2"
                     >
                       <PencilIcon
                         class="h-4 w-4 text-gray-500 mr-1"
@@ -82,7 +82,7 @@
                     </a>
                     <a
                       @click="$emit('addItem', item)"
-                      class="text-zinc-500 group flex items-center px-4 py-2"
+                      class="hover:bg-gray-100 cursor-pointer text-zinc-500 group flex items-center px-4 py-2"
                     >
                       <PlusIcon
                         class="h-4 w-4 text-gray-500 mr-1"
@@ -90,21 +90,27 @@
                       />
                       Добавить
                     </a>
-                    <a class="text-zinc-500 group flex items-center px-4 py-2">
+                    <a
+                      class="hover:bg-gray-100 cursor-pointer text-zinc-500 group flex items-center px-4 py-2"
+                    >
                       <DocumentDuplicateIcon
                         class="h-4 w-4 text-gray-500 mr-1"
                         aria-hidden="true"
                       />
                       Копировать
                     </a>
-                    <a class="text-zinc-500 group flex items-center px-4 py-2">
+                    <a
+                      class="hover:bg-gray-100 cursor-pointer text-zinc-500 group flex items-center px-4 py-2"
+                    >
                       <ArrowUpIcon
                         class="h-4 w-4 text-gray-500 mr-1"
                         aria-hidden="true"
                       />
                       Вверх
                     </a>
-                    <a class="text-zinc-500 group flex items-center px-4 py-2">
+                    <a
+                      class="hover:bg-gray-100 cursor-pointer text-zinc-500 group flex items-center px-4 py-2"
+                    >
                       <ArrowDownIcon
                         class="h-4 w-4 text-gray-500 mr-1"
                         aria-hidden="true"
@@ -113,7 +119,7 @@
                     </a>
                     <a
                       @click="$emit('deleteItem', item)"
-                      class="text-zinc-500 group flex items-center px-4 py-2"
+                      class="hover:bg-gray-100 cursor-pointer text-zinc-500 group flex items-center px-4 py-2"
                     >
                       <TrashIcon
                         class="h-4 w-4 text-gray-500 mr-1"
@@ -130,7 +136,7 @@
             <button
               type="button"
               @click="$emit('editItem', item)"
-              class="rounded-l-md absolute top-0 right-7 items-center border border-gray-300 bg-white px-1.5 font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 ring-0 hover:text-indigo-600 mt-0.5"
+              class="rounded-l-md absolute cursor-pointer top-0 right-7 items-center border border-gray-300 bg-white px-1.5 font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-0 ring-0 hover:text-indigo-600 mt-0.5"
             >
               <PencilIcon class="h-4 w-4" aria-hidden="true" />
             </button>

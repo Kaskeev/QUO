@@ -34,7 +34,7 @@
               :to="`${link.path}`"
               class="hover:bg-gray-200 text-gray-600 hover:text-gray-800 text-sm py-2 rounded-md cursor-pointer"
             >
-              <span class="text-sm px-1.5 xl:px-3">{{ link.title }}</span>
+              <span class="text-sm px-1.5 xl:px-3">{{ link.label }}</span>
             </router-link>
           </template>
           <div class="relative inline-block text-left">
@@ -203,11 +203,21 @@
       >
         Eldiyar's Team
       </span>
-      <ResponsiveMenu :optionsLeft="optionsLeft" :options="options" />
+      <ResponsiveMenu
+        :optionsLeft="optionsLeft"
+        :links="links"
+        :options="options"
+      />
     </div>
   </div>
 </template>
 <script>
+import {
+  DocumentTextIcon,
+  UserIcon,
+  ShoppingCartIcon,
+  CubeIcon,
+} from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import { defineComponent } from 'vue'
 import ResponsiveMenu from '../components/templates/ResponsiveMenu.vue'
@@ -332,14 +342,19 @@ export default defineComponent({
   },
   data() {
     return {
-      links: [
-        { id: 1, title: 'Сценарий', path: 'scenario' },
-        { id: 2, title: 'Заказы', path: 'scenario' },
-        { id: 3, title: 'Контакты', path: 'contacts' },
-        { id: 4, title: 'Продукты', path: 'scenario' },
-        { id: 5, title: 'Маркетинг', path: 'scenario' },
-        { id: 6, title: 'Аналитика', path: 'analytics' },
-      ],
+      links: ref([
+        {
+          id: 1,
+          label: 'Сценарий',
+          path: 'scenario',
+          icon: DocumentTextIcon,
+        },
+        { id: 2, label: 'Заказы', path: 'scenario', icon: ShoppingCartIcon },
+        { id: 3, label: 'Контакты', path: 'contacts', icon: UserIcon },
+        { id: 4, label: 'Продукты', path: 'scenario', icon: CubeIcon },
+        { id: 5, label: 'Маркетинг', path: 'scenario' },
+        { id: 6, label: 'Аналитика', path: 'analytics' },
+      ]),
     }
   },
 })

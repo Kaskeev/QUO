@@ -1,13 +1,13 @@
 <template>
   <div
-    class="overflow-hidden fixed inset-0 z-10 flex items-center justify-center bg-gray-500 bg-opacity-50"
+    class="fixed inset-0 z-10 flex items-center justify-center bg-gray-500 bg-opacity-50"
     v-if="show"
     @click.self="$emit('closeModal')"
   >
     <div
-      class="mb-6 transform rounded-lg bg-white shadow-xl transition-all sm:m-auto sm:w-full sm:max-w-2xl"
+      class="mb-6 transform rounded-lg bg-white shadow-xl transition-all sm:m-auto sm:w-full-auto sm:max-w-2xl"
     >
-      <div class="relative px-6 py-4">
+      <div class="relative px-6 py-4 md:w-full sm:w-full">
         <div class="flex">
           <h2 class="text-zinc-600 text-base md:text-xl">
             {{ modalTitle }}
@@ -31,9 +31,12 @@
           </button>
         </div>
         <form @submit.prevent="submitForm">
-          <div>
-            <div class="grid grid-cols-6 gap-6 mt-4 mb-2">
-              <div v-for="field in fields" :class="gridColumns[field.colSpan]">
+          <div class="overflow-y-auto max-h-96">
+            <div class="grid grid-cols-6 gap-6 mt-4 mb-2 sm:grid-cols-6">
+              <div
+                v-for="field in fields"
+                :class="[gridColumns[field.colSpan], 'col-span-6']"
+              >
                 <template v-if="field.type === 'input'">
                   <label
                     class="block font-medium text-sm text-gray-700"
@@ -169,11 +172,12 @@ export default defineComponent({
         return 'Редактирование'
       }
     })
-    const gridColumns = {
-      2: 'col-span-2',
-      6: 'col-span-6',
-    }
-
+    const gridColumns = computed(() => {
+      return {
+        2: 'md:col-span-2',
+        6: 'sm:col-span-6',
+      }
+    })
     return {
       newItem,
       submitForm,
@@ -184,3 +188,28 @@ export default defineComponent({
   },
 })
 </script>
+<style>
+@media (max-width: 767px) {
+  .grid-cols-mobile {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sm\:w-full-auto {
+    width: 90% !important;
+  }
+  .overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  .max-h-96 {
+    max-height: 26rem;
+  }
+}
+@media (min-width: 768px) {
+  .overflow-y-auto {
+    overflow-y: hidden;
+  }
+  .max-h-96 {
+    max-height: 100%;
+  }
+}
+</style>

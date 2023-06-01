@@ -4,21 +4,7 @@
       @click="openModal"
       class="m-1 -mr-1 inline-flex items-center justify-center p-1 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-offset-0"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        aria-hidden="true"
-        class="block h-6 w-6 stroke-1"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-        ></path>
-      </svg>
+      <Bars3Icon class="h-6 w-6" aria-hidden="true" />
     </button>
   </div>
   <TransitionRoot appear :show="isOpen" as="template">
@@ -59,21 +45,11 @@
                   >
                     Эльдияр
                   </DialogTitle>
-                  <svg
+                  <XCircleIcon
                     @click="closeModal"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+                    class="h-6 w-6 stroke-1"
+                    aria-hidden="true"
+                  />
                 </div>
                 <p class="text-sm text-zinc-500">Эльдияр's Team</p>
 
@@ -81,21 +57,8 @@
                   target="props.target"
                   class="flex items-center py-3 rounded-lg text-sm leading-5 text-zinc-600 hover:text-indigo-600 focus:text-indigo-600 focus:outline-noneactive:outline-none"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    class="flex-shrink-0 h-6 w-6 text-zinc-400 stroke-1 group-hover:text-indigo-600 mr-2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
-                    ></path>
-                  </svg>
+                  <ArrowsRightLeftIcon class="h-6 w-6 mr-2" />
+
                   <span class="text-sm group-hover:text-indigo-600">
                     Сменить проект
                   </span>
@@ -104,16 +67,16 @@
               <nav
                 class="grid gap-y-6 px-4 py-4 bg-white grid-cols-2 gap-x-8 border-b border-zinc-200"
               >
-                <div v-for="option in listOptions">
+                <div v-for="option in linksOption">
                   <ul role="list" class="space-y-4">
                     <li class="flow-root">
                       <a
                         class="text-zinc-600 -m-3 p-3 flex items-center rounded-lg text-sm hover:bg-zinc-100 transition ease-in-out duration-150 group cursor-pointer hover:text-indigo-700"
                         href="#"
                       >
-                        <img
-                          class="text-gray-600 w-5 h-5 mr-2 stroke-1"
-                          :src="option.imagePath"
+                        <component
+                          :is="option.icon"
+                          class="text-zinc-400 flex-shrink-0 h-6 w-6 stroke-1 group-hover:text-indigo-700"
                         />
                         <span class="ml-4 group-hover:text-indigo-600">
                           {{ option.label }}
@@ -185,7 +148,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
+import {
+  Bars3Icon,
+  XCircleIcon,
+  ArrowsRightLeftIcon,
+} from '@heroicons/vue/24/outline'
 import {
   TransitionRoot,
   TransitionChild,
@@ -195,22 +163,22 @@ import {
 } from '@headlessui/vue'
 
 const props = defineProps({
-  //   optionsLeft: {
-  //     type: Array,
-  //   },
+  optionsLeft: {
+    type: Array,
+  },
   options: {
     type: Array,
   },
+  links: {
+    type: Array,
+  },
 })
-// const listOptionsLeft = props.optionsLeft
-const listOptions = props.options
+// const listOptions = ref(props.options)
+const linksOption = ref(props.links)
+// const mergedArray = ref([])
+// mergedArray.value = [...listOptions.value, ...linksOption.value]
+// console.log(mergedArray)
 
-// const mergedOptions = ref([])
-
-// mergedOptions.value = [...props.options, ...props.optionsLeft]
-
-// console.log(listOptionsLeft)
-console.log(listOptions)
 const isOpen = ref(false)
 function closeModal() {
   isOpen.value = false
